@@ -1,0 +1,48 @@
+<div id="accordion-1" role="tablist" aria-multiselectable="true">
+    <div style="padding: 22px"  widget class="card border-0 box-shadow">
+        <p class="urMsg"> : متن تیکت</p> <p class="msg">{{description}}</p> 
+        <div class="attachment" *ngIf="attachmentAddress">
+                <button   class="btn btn-gray w-100p mb-1 mr-1" type="button">
+                    <a style="color: floralwhite" href="/{{attachmentAddress}}" download="{{attachmentAddress}}"> دانلود</a>
+                
+                </button>
+        </div>
+       </div>
+    <div widget class="card border-0 box-shadow">
+        <div class="card-header transparent border-0 text-muted">
+            <h5 class="mb-0">پاسخ</h5>       
+        </div>
+        <div class="card-body widget-body">
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+                <div class="form-group">
+                    <textarea [formControl]="answerDesc" class="form-control" placeholder="Message" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">ارسال</button>
+            </form>
+
+        </div>
+    </div>
+    <div widget class="urRp card border-0 box-shadow">
+        <p *ngIf="replys.length">پاسخ های این تیکت</p> 
+        <p *ngIf="!replys.length">فعلا پاسخی برای این تیکت وجود ندارد</p>
+       </div>
+  <div class="card" *ngFor="let rep of replys">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{rep.replyDate}}
+        </a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse " data-parent="#accordion-1" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-body">
+       <div class="req">
+        <p class="name">{{rep.userEmail}} :</p> <p>{{rep.description}}</p>
+
+       </div>
+      </div>
+
+    </div>
+  </div>
+  </div>

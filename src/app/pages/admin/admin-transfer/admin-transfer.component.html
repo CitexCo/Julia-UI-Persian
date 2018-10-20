@@ -1,0 +1,263 @@
+<div class="mat-elevation-z8 mb-4">
+    <table mat-table [dataSource]="pendingTransfer" dir='ltr'>
+        <ng-container matColumnDef="userEmail">
+            <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
+            <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+          </ng-container>
+      <ng-container matColumnDef="reqNum">
+          <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
+          <td mat-cell *matCellDef="let element"> {{element.transferRequestNumber}} </td>
+        </ng-container>
+      <ng-container matColumnDef="tokenPrice">
+        <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.tokenPrice}}
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="submitDate">
+        <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
+        <td mat-cell *matCellDef="let element">
+
+          {{element.userSubmitDate}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.amount}}
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+          <td mat-cell *matCellDef="let element">
+              <div aria-label="Second group" class="btn-group " role="group">
+                  <button data-toggle="modal" data-target="#rejectModal" (click)="getNum(element.transferRequestNumber)" class="btn btn-danger" type="button">
+                    <i class="fa fa-times"></i>
+                  </button>
+                  <button data-toggle="modal" data-target="#approveModal" (click)="getNum(element.transferRequestNumber)" class="btn btn-success" type="button">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+
+          </td>
+        </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedPendingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedPendingColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+<div class="container">
+    <mat-card>
+        <mat-card-header  dir="rtl">
+            <mat-card-title-group>
+                <mat-card-title>
+                    <h2>جستجوی کاربران</h2>
+                </mat-card-title>
+            </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="filter row"  dir="rtl">
+                <mat-form-field style="width: 40%; margin-right: 20px;">
+                    <input matInput  placeholder="ایمیل کاربر را وارد نمایید ...">
+                </mat-form-field>
+                <section class="pending-chkbox-container">
+                    <button mat-button color="link" (click)="showAccount()">نمایش اطلاعات حساب</button>
+                    <button mat-button color="link" (click)="showContract()">نمایش اطلاعات قرارداد</button>
+                </section>
+            </div>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" dir="rtl">
+
+                    <ng-container matColumnDef="transferRequestNumber">
+                        <th mat-header-cell *matHeaderCellDef> شماره رسید </th>
+                        <td mat-cell *matCellDef="let element"> {{element.transferRequestNumber}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="userEmail">
+                        <th mat-header-cell *matHeaderCellDef> ایمیل </th>
+                        <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="from">
+                        <th mat-header-cell *matHeaderCellDef> انتقال از </th>
+                        <td style="color: blue" mat-cell *matCellDef="let element" dir="ltr"> {{element.from | summary:30}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="walletAddress">
+                        <th mat-header-cell *matHeaderCellDef> انتقال به </th>
+                        <td style="color: blue" mat-cell *matCellDef="let element" dir="ltr"> {{element.walletAddress}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef> تعداد توکن </th>
+                        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="transfer">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-button color="primary" (click)="transfer(element)"> انتقال </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="Columns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: Columns;"></tr>
+                </table>
+
+                <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+
+  <!-- MODALS -->
+  <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="modal-danger-label">
+    <div *ngIf="!err && !success" class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header state modal-danger">
+          <h4 class="modal-title" id="modal-danger-label">
+            شماره رسید: {{reciptNum}} </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <flash-messages></flash-messages>
+          <form (ngSubmit)="onSubmit(form.value)" [formGroup]="rejectForm" class="form-horizontal">
+  
+  
+  
+            <div class="form-group row text-sm-right">
+  
+              <div class="col-sm-9">
+                <textarea formControlName="comment" type="text" class="form-control" id="email-h-t"></textarea>
+                <small class="text-danger" *ngIf="rejectForm.get('comment').hasError('required')">ذکر توضیحات الزامی است</small>
+              </div>
+              <label for="email-h-f" class="col-sm-3 form-control-label mt-1">توضیحات</label>
+  
+            </div>
+            <div class="modal-footer">
+              <button type="button"  (click)='reject()' class="btn btn-danger">تایید</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+          </form>
+        </div>
+  
+      </div>
+    </div>
+  
+    <div *ngIf="err" class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header state modal-danger">
+          <h4 class="modal-title" id="modal-danger-label">
+            <i class="fa fa-exclamation"></i>Error</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{Msg}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="success" class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header state modal-success">
+          <h4 class="modal-title" id="modal-success-label">
+            <i class="fa fa-exclamation"></i>تمام</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{Msg}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="modal-warning-label">
+      <div *ngIf="!err && !success" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header state modal-warning">
+            <h4 class="modal-title" id="modal-warning-label">
+              شماره رسید: {{reciptNum}} </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <flash-messages></flash-messages>
+            <form (ngSubmit)="onSubmit(form.value)" [formGroup]="approveForm" class="form-horizontal">
+    
+    
+    
+              <div class="form-group row text-sm-right">
+    
+                <div class="col-sm-9">
+                  <textarea formControlName="comment" type="text" class="form-control" id="email-h-t"></textarea>
+    
+                </div>
+                <label for="email-h-f" class="col-sm-3 form-control-label mt-1">توضیحات</label>
+              </div>
+              <div class="modal-footer">
+                <button type="button" (click)='approve()' class="btn btn-success">تایید</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+              </div>
+            </form>
+          </div>
+    
+        </div>
+      </div>
+    
+      <div *ngIf="err" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header state modal-danger">
+            <h4 class="modal-title" id="modal-danger-label">
+              <i class="fa fa-exclamation"></i>Error</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{Msg}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
+          </div>
+        </div>
+      </div>
+    
+      <div *ngIf="success" class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header state modal-success">
+            <h4 class="modal-title" id="modal-success-label">
+              <i class="fa fa-exclamation"></i>تمام</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{Msg}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,490 @@
+<h2>احراز هویت</h2>
+<p class="text-muted">در این بخش برای تکمیل عضویت خود اطلاعات خواسته شده را وارد کنید</p>
+
+
+
+<div *ngIf="!KYCVerified && !KYCupdated" class="row">
+
+    <div class="col">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">فرم احراز هویت</h5>
+            </div>
+            <div *ngIf="!confirmed" class="card-body widget-body">
+                <div class="row">
+                    <div class="col-md-1 ">
+
+                    </div>
+                    <div *ngFor="let step of steps; let last = last" class="col-md-2 col-sm-6 col-12 step text-center">
+                        <div class="d-flex justify-content-center align-items-center text-white pl-2 pr-2 mb-2 rounded step-content" [class.bg-success]="step.valid"
+                            [class.bg-danger]="step.active" [class.confirmed]="confirmed">
+
+                            <span class="step-name">{{step.describ}}</span>
+                            <i class="fa {{ step.icon }} ml-2" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                </div>
+
+                <div *ngFor="let step of steps" [hidden]="!step.active" class="col">
+                    <!-- <div class="row">
+                        <h4 class="mt-3 mb-3">
+                            <i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
+                    </div> -->
+
+
+                    <form *ngIf="step.name=='Start ID Verification'" [formGroup]="accountForm" class="row bg-light pt-2">
+                        <!-- <div class="col-md-12 welcome">
+                            <p>please have your ID ready for verification</p>
+
+                            <p>this verification process is designed to confirm your identity and protect you from identity theft</p>
+                        </div> -->
+
+                        <div class="col-lg-12 col-md-12 mb-4">
+                            <div class="card card-outline-success text-center">
+                                <div class="card-body">
+                                    <blockquote class="card-bodyquote">
+                                        <p>شروع پروسه احراز هویت</p>
+                                        <footer> این رویه به منظور تایید هویت شما و محافظت شما از سرقت هویت شما طراحی شده است </footer>
+                                        <div class='col-md-12'>
+                                            <button type="button" (click)='next()' style="width: 21%;margin: 2%;    font-size: 19px;" class="btn btn-success " data-toggle="modal"
+                                                data-target="#exampleModal">
+                                                شروع
+                                            </button>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <form *ngIf="step.name=='Personal Information'" [formGroup]="personalForm" class="row bg-light pt-2">
+                        <div class="col-md-12 form-container">
+                            <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('firstname').hasError('required')">First Name is required</small> -->
+                            <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('firstname').hasError('required'), 'has-success' : !personalForm.get('firstname').hasError('required') }">
+
+                                <input style="max-width:50%;    margin-right: 6.6%;" formControlName="firstname" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('firstname').hasError('required'), 'form-control-success' :  !personalForm.get('firstname').hasError('required') }"
+                                    type="text">
+
+                                <label class="form-control-label"> نام</label>
+                            </div>
+
+                            <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastname').hasError('required'), 'has-success' : !personalForm.get('lastname').hasError('required') }">
+
+                                <input style="max-width:50%;" formControlName="lastname" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('lastname').hasError('required'), 'form-control-success' :  !personalForm.get('lastname').hasError('required') }"
+                                    type="text">
+                                <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('lastname').hasError('required')">Last Name is required</small> -->
+                                <label class="form-control-label">نام خانوادگی</label>
+                            </div>
+
+
+
+
+                            <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('phone').hasError('required'), 'has-success' : !personalForm.get('phone').hasError('required') }">
+
+                                <input style="max-width:50%;    margin-right: 2.5%;" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('phone').hasError('required'), 'form-control-success' :  !personalForm.get('phone').hasError('required') }"
+                                    type="number">
+
+                                <label class="form-control-label">شماره تلفن</label>
+                                <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('phone').hasError('required')">Phone is required</small> -->
+                            </div>
+
+
+                            <div class="form-group col-md-12" [ngClass]="{'form-control-danger' : step.hasError&& personalForm.get('birth').hasError('required'), 'form-control-success' : !personalForm.get('birth').hasError('required') }">
+
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="birth" matInput [min]="minDate" [max]="maxDate" [errorStateMatcher]="matcher" [matDatepicker]="picker"
+                                        placeholder="Select your Birth Date">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="dateFormControl.hasError('date')">
+                                        Birth Date is
+                                        <strong>Not Valid</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="dateFormControl.hasError('required')">
+                                        Birth Date is
+                                        <strong>required</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                                <label style="margin-left:1%" for="input-12">تاریخ تولد</label>
+                                <!-- <input style="max-width:50%;" [ngClass]="{'form-control-danger' :  personalForm.get('birth').hasError('required'), 'form-control-success' :  !personalForm.get('birth').hasError('required') }"
+                                formControlName="birth" class="form-control" id="input-12" type="date" value="2011-08-19"> -->
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-lg-4 mb-4 pull-right img-container">
+                                <h6>عکس پرسنلی</h6>
+                                <!-- <input type="file"  (change)="image($event)" formControlName="image" > -->
+                                <input style="    left: 12px;" type="file" accept="image/*" formControlName="PersonImage" id="imginput" (change)="PersonImage($event)"
+                                    class="img-upload-btn" />
+
+                                <button class="btn btn-info btn-block rounded-0" type="button">
+                                    <span *ngIf="!PersonPhoto">
+                                        <i class="fa fa-upload"></i> Select Image... </span>
+                                    <span *ngIf="PersonPhoto">
+                                        <i class="fa fa-refresh"></i> Change Image... </span>
+                                </button>
+
+                                <div class="image-wrapper">
+                                    <i *ngIf="PersonPhoto" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                    <img [attr.src]="PersonPhoto" *ngIf="PersonPhoto" width="100%">
+                                    <!-- <img src="assets/img/app/no-image.png" *ngIf="!photo" width="100%"> -->
+                                </div>
+
+
+                                <div class="err" *ngIf="personalForm.get('PersonImage').hasError('required')">ارسال عکس الزامی است</div>
+                            </div>
+                        </div>
+                    </form>
+                    <form *ngIf="step.name=='wallet Information'" [formGroup]="WalletForm" class="row bg-light pt-2">
+                        <div class="col-md-12">
+                                <mat-radio-group formControlName="hasWallet" dir="rtl">
+                                        <div class="walletRadio">
+                                                <mat-radio-button  [value]="false" [checked]="!haveWallet" class="radiobtn" (change)="NoWallet($event)" value="2"></mat-radio-button> <label>آدرس اتریوم ندارم</label>
+                                        </div>
+                                    <div class="walletRadio">
+                                            <mat-radio-button  [value]="true" class="radiobtn" (change)="Wallet($event)" value="1"> </mat-radio-button> <label>آدرس اتریوم دارم</label>
+                                    </div>
+                                        
+                                        
+                                        <div *ngIf="haveWallet" class="form-group " id="walletDiv" [ngClass]="{'has-danger' : (step.hasError&& WalletForm.get('wallet').hasError('incorrect')) || (step.hasError&& WalletForm.get('wallet').hasError('required')), 'has-success' : !WalletForm.get('wallet').hasError('required') &&  !WalletForm.get('wallet').hasError('incorrect') }">
+                                                <label class="form-control-label">آدرس اتریوم</label>
+                                                <input  (input)='isAddress($event.target.value)' style="max-width:27%;     font-family: initial;   margin-right: 1.5%;" formControlName="wallet"
+                                                    class="form-control" [ngClass]="{'form-control-danger' :  (step.hasError&& WalletForm.get('wallet').hasError('incorrect')) || (step.hasError&& WalletForm.get('wallet').hasError('required')), 'form-control-success' :  !WalletForm.get('wallet').hasError('required') && !WalletForm.get('wallet').hasError('required') }"
+                                                    type="text">
+                                                <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('wallet').hasError('required')">required</small>
+                                            <small class="text-danger" *ngIf="step.hasError && personalForm.get('wallet').hasError('incorrect')">incorrect Wallet Address</small> -->
+
+                                            </div>
+
+                                        
+                                      </mat-radio-group>
+                        </div>
+
+
+                    </form>
+                    <form *ngIf="step.name=='Address Information'" id="secondForm" [formGroup]="AddressForm" class="row bg-light pt-2">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-outline-primary text-center">
+                                        <div class="card-body">
+                                            <blockquote class="card-bodyquote">
+                                                <p>ارسال عکس شناسایی</p>
+                                                <footer> برای تایید مدارک یک عکس با الگوی زیر ارسال کنید 
+                                                </footer>
+                                                    <p class="kycCode">کد تایید شما : {{kycCode}}</p>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+
+                                    <div class="col-md-5 sampleImg">
+                                        <div class="card-deck">
+                                            <div class="card">
+                                                <img class="card-img-top w-100" src="assets/img/app/4.png" alt="Card image cap">
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                <div class="col-md-7 secondImg">
+                                    <div class=" img-container ">
+                                        <h6>ارسال عکس</h6>
+                                        <!-- <input type="file"  (change)="image($event)" formControlName="image" > -->
+                                        <input style="    left: 12px;" type="file" accept="image/*" formControlName="SecondImage" id="imginput" (change)="SecondImage($event)"
+                                            class="img-upload-btn" />
+
+                                        <button class="btn btn-info btn-block rounded-0" type="button">
+                                            <span *ngIf="!SecondPhoto">
+                                                <i class="fa fa-upload"></i> Select Image... </span>
+                                            <span *ngIf="SecondPhoto">
+                                                <i class="fa fa-refresh"></i> Change Image... </span>
+                                        </button>
+
+                                        <div class="image-wrapper">
+                                            <i *ngIf="SecondPhoto" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                            <img [attr.src]="SecondPhoto" *ngIf="SecondPhoto" width="100%">
+                                            <img src="assets/img/app/no-image.png" *ngIf="!SecondPhoto" width="100%">
+                                        </div>
+
+
+                                        <div class="err" *ngIf="AddressForm.get('SecondImage').hasError('required')">ارسال عکس الزامی است</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </form>
+
+                    <div *ngIf="step.name=='Confirm Your Details'" class="row bg-light pt-2">
+                        <div class="element col-md-12">
+                            <div class="verifyTitle">
+                                <i>{{details.firstname}} &nbsp;</i>
+                            </div>
+                            <div class="verifyTxt col-md-1">
+                                <strong class="text-truncate">نام</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="element col-md-12">
+                            <div class="verifyTitle">
+                                <i>{{details.lastname}} &nbsp;</i>
+                            </div>
+                            <div class="verifyTxt col-md-1">
+                                <strong class="text-truncate">نام خانوادگی</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="element col-md-12">
+                            <div class="verifyTitle">
+                                <i>{{details.phone}}</i>
+                            </div>
+                            <div class="verifyTxt col-md-1">
+                                <strong class="text-truncate">شماره تلفن</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="element col-md-12">
+
+                            <div class="verifyTitle">
+                                <i>{{details.birthDate}} &nbsp;</i>
+                            </div>
+                            <div class="verifyTxt col-md-1">
+                                <strong class="text-truncate">تاریخ تولد</strong>
+                            </div>
+                        </div>
+
+
+
+                        <div class="element col-md-12">
+                            <div class="verifyTitle" style="font-family: initial">
+                                <i>{{details.wallet}} &nbsp;</i>
+                            </div>
+                            <div class="verifyTxt col-md-1">
+                                <strong class="text-truncate">آدرس اتریوم</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="element col-md-12">
+
+
+
+                            <div class="modal fade" id="PersonImg" tabindex="-1" role="dialog" style="display: none;">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img [attr.src]="PersonPhoto" *ngIf="PersonPhoto" width="100%">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="SecondImg" tabindex="-1" role="dialog" style="display: none;">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <img [attr.src]="SecondPhoto" *ngIf="SecondPhoto" width="100%">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="verifyTxt col-md-2">
+                                <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" data-target="#PersonImg">عکس پرسنلی</button>
+                                <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" data-target="#SecondImg">عکس شناسایی</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button *ngIf='!steps[steps.length-1].active' class="btn btn-primary pull-right" (click)="prev()">
+                            <i class="fa fa-chevron-right arrow"></i>&nbsp; قبلی</button>
+
+                        <button *ngIf="!steps[steps.length-5].active && !steps[steps.length-1].active" class="btn btn-primary pull-left" (click)="next()">بعدی &nbsp;
+                            <i class="fa fa-chevron-left arrow"></i>
+
+                        </button>
+
+
+                        <button *ngIf="steps[steps.length-5].active  " class="btn btn-primary pull-left" (click)="confirm()">تایید &nbsp;
+                            <i class="fa fa-check arrow"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="confirmed" class="card-body widget-body">
+
+                <div class="col bg-light p-5">
+                    <div class="d-flex justify-content-center align-items-center flex-column bg-light confirmed-content">
+                        <i *ngIf="dataSuccess" class="fa fa-check text-success" aria-hidden="true"></i>
+                        <i *ngIf="!dataSuccess" style="    font-size: 50px;" class="fa fa-times text-danger" aria-hidden="true"></i>
+                        <h2 class="p-3">{{dataMsg}}</h2>
+                        <button class="btn btn-success" (click)="home()">بازگشت</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="KYCupdated" class="verified">
+    <p style="color: goldenrod">
+    فرم احراز هویت شما ارسال شده است منتظر تایید باشید
+    </p>
+
+</div>
+<div *ngIf="KYCVerified" class="verified">
+    <p>
+        <i class="fa fa-check text-success" aria-hidden="true"></i>احراز هویت شما تایید شده است</p>
+
+</div>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div *ngIf="KYCVerified" class="col-md-6 preview pt-2 ">
+        <div class="element col-md-12">
+            <div class="element col-md-12">
+                <div class="verifyTitle">
+                    <i>{{balance}} &nbsp;</i>
+                </div>
+                <div class="verifyTxt col-md-1">
+                    <strong class="text-truncate">شماره موجودی</strong>
+                </div>
+
+            </div>
+            <div class="element col-md-12">
+                <div class="verifyTitle">
+                    <i>{{firstName}} &nbsp;</i>
+                </div>
+                <div class="verifyTxt col-md-1">
+                    <strong class="text-truncate">نام</strong>
+                </div>
+
+            </div>
+
+
+            <div class="element col-md-12">
+                <div class="verifyTitle">
+                    <i>{{lastname}} &nbsp;</i>
+                </div>
+                <div class="verifyTxt col-md-1">
+                    <strong class="text-truncate">نام خانوادگی</strong>
+                </div>
+
+            </div>
+
+
+            <div class="element col-md-12">
+                <div class="verifyTitle">
+                    <i>{{telephone}}</i>
+                </div>
+                <div class="verifyTxt col-md-1">
+                    <strong class="text-truncate">شماره تلفن</strong>
+                </div>
+
+            </div>
+
+            <!-- <div class="element col-md-12">
+
+                <div class="verifyTitle">
+                    <i>{{address}} &nbsp;</i>
+                </div>
+                <div class="verifyTxt col-md-1">
+                    <strong class="text-truncate">آدرس</strong>
+                </div>
+            </div> -->
+
+
+
+            <div class="element col-md-12">
+                <div class="verifyTitle" style="font-family: initial">
+                    <i>{{walletAddress}} &nbsp;</i>
+                </div>
+                <div class="verifyTxt col-md-1">
+                    <strong class="text-truncate">آدرس اتریوم</strong>
+                </div>
+
+            </div>
+            <div class="element col-md-12">
+
+
+
+                <div class="modal fade" id="noheader-modal" tabindex="-1" role="dialog" style="display: none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img src='{{passImg}}'>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="verifyTxt col-md-2">
+                    <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" data-target="#noheader-modal">تصویر پاسپورت</button>
+                </div>
+            </div>
+
+
+
+
+            <!-- <div class="col-5" style="    margin: 29px 34px;">
+                    <button class="btn btn-gray btn-lg btn-block"  data-toggle="modal" data-target="#exampleModalCenter" type="button">Edite form</button>
+                    
+                </div> -->
+            <!-- Modal -->
+            <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Warning!!</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      If You want to change any parts of your KYC form please Send Support Ticket... 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+        </div>
+    </div>

@@ -1,0 +1,37 @@
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+.txtHeader{
+    text-align: center;
+    font-size: 21px;
+    padding: 16px;
+}
+.confirmedmail{
+    font-size: 15px;
+    color: green;
+    font-weight: 600;
+}
+.Notconfirmedmail{
+    font-size: 15px;
+    color: red;
+    font-weight: 600;
+}
+// .ngx-datatable .datatable-body{
+//     text-align: left;
+// }
+table {
+    width: 100%;
+  }
+
+  .mat-header-cell {
+    font-size: 20px;
+
+}
+th.mat-header-cell {
+    text-align: right!important;
+    padding: 12px!important;
+}
+td.mat-cell {
+
+    padding: 12px!important;
+}

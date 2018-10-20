@@ -1,0 +1,89 @@
+<div widget class="card border-0 box-shadow">
+    <div class="card-header transparent border-0 text-muted">
+        <h5 class="mb-0">تیکت های کاربران</h5>
+         
+    </div>
+  
+    <div class="card-body pt-0 widget-body">
+            <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" dir='rtl'>
+                      <ng-container matColumnDef="conversation">
+                        <th mat-header-cell *matHeaderCellDef> مکالمات </th>
+                        <td mat-cell *matCellDef="let element">
+            
+                                <button (click)="ShowTicket(element.ticketNumber)" class="btn btn-info btn-rounded w-100p mb-1 mr-1" type="button">مشاهده</button>
+            
+                        </td>
+                      </ng-container>
+                      <!-- tokenType Column -->
+                      <ng-container matColumnDef="tokenType">
+                        <th mat-header-cell *matHeaderCellDef> نوع توکن </th>
+                        <td mat-cell *matCellDef="let element">
+                          
+                            {{element.tokenType}}
+
+                        </td>
+                      </ng-container>
+                      <!-- status Column -->
+                      <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                        <td mat-cell *matCellDef="let element"> 
+                                <span data-toggle="modal" data-target="#stateModal" [ngClass]="{'badge-danger': element.status=='Closed'||element.status=='Canceled', 'badge-info': element.status=='Resolved'}"
+                                style="cursor: pointer;" class="badge badge-success mr-1">{{element.status}}</span>    
+                        </td>
+                      </ng-container>
+                      <!-- subject Column -->
+                      <ng-container matColumnDef="subject">
+                        <th mat-header-cell *matHeaderCellDef> موضوع </th>
+                        <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+                      </ng-container>
+                      <!-- Position Column -->
+                      <ng-container matColumnDef="replyDate">
+                        <th mat-header-cell *matHeaderCellDef> تاریخ آخرین پیام </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.lastReplyDate}}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ticketNumber">
+                            <th mat-header-cell *matHeaderCellDef> شماره تیکت </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{element.ticketNumber}}
+                            </td>
+                          </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+            
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                  </div>
+            <!-- <table class="table table-striped">
+                    <thead>
+                        <tr>
+                              <th>مکالمات</th>
+                              <th>نوع توکن</th>
+                              <th>وضعیت</th>
+                              <th>موضوع</th>
+                              <th>تاریخ آخرین پیام</th>
+                            <th>شماره تیکت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ticket of ticketsArr">
+                              <td>
+                                      <button   (click)="ShowTicket(ticket.ticketNumber)" class="btn btn-info btn-rounded w-100p mb-1 mr-1" type="button">مشاهده</button>
+                                    </td>
+                                    <td>{{ticket.tokenType}}</td>
+                                    <td><span data-toggle="modal" data-target="#stateModal" (click)="changeState(ticket)" [ngClass]="{'badge-danger': ticket.status=='Closed'||ticket.status=='Canceled', 'badge-info': ticket.status=='Resolved'}" style="cursor: pointer;" class="badge badge-success mr-1">{{ticket.status}}</span></td>
+                                    <td>{{ticket.subject}}</td>
+                                    <td>{{ticket.lastReplyDate}}</td>
+                            <th scope="row">{{ticket.ticketNumber}}</th>
+          
+          
+          
+          
+          
+                        </tr>
+                    </tbody>
+                </table> -->
+        </div>
+  </div>

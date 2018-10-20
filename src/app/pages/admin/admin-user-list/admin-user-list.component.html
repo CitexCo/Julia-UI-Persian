@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-2" *ngIf="selected?.length != 0">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+      
+          <div class="card-body pt-0 pb-0 widget-body">
+            <div class="row mt-2">
+              <div >
+                <h6>{{selected[0].email}}</h6>
+                <input type="hidden" [value]="selected[0].email" formControlName="email"  >
+                <!-- <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input formControlName="user" type="checkbox" [checked]="isUser"  class="custom-control-input" id="checkboxDefault">
+                    <label class="custom-control-label" for="checkboxDefault">user</label>
+                  </div>
+                  
+                </div> -->
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input formControlName="exchanger" type="checkbox" [checked]="isUserManager" class="custom-control-input checkbox-primary" id="checkboxPrimary"
+                      checked>
+                    <label class="custom-control-label" for="checkboxPrimary">مدیر کابران</label>
+                  </div>
+                  </div>
+                  <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input formControlName="changeRoles" type="checkbox" [checked]="isChangeRole" class="custom-control-input checkbox-success" id="checkboxSuccess"
+                      checked>
+                    <label class="custom-control-label" for="checkboxSuccess">تغییر دسترسی</label>
+                  </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="custom-control custom-checkbox">
+                        <input formControlName="verifyKYC" type="checkbox" [checked]="isVerifyKYC" class="custom-control-input checkbox-warning" id="checkboxWarning"
+                          checked>
+                        <label class="custom-control-label" for="checkboxWarning">تایید احراز هویت</label>
+                      </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="custom-control custom-checkbox">
+                            <input formControlName="answerTicket" type="checkbox" [checked]="isAnswerTicket " class="custom-control-input checkbox-warning" id="answerTicket"
+                              checked>
+                            <label class="custom-control-label" for="answerTicket">پاسخ به تیکت ها</label>
+                          </div>
+                          </div>
+                  <div class="form-group">
+                      <button  class="btn btn-block" type="submit">Change Role</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <div class="col-md-2" *ngIf="selected?.length == 0"></div>
+
+      <div class="col-md-10">
+          <div class="input-group mb-2">
+              <span class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-search"></i>
+                </span>
+              </span>
+              <input class="form-control" type="text" placeholder="Type to filter the name column..." (keyup)="updateFilter($event)" />
+            </div>
+        <ngx-datatable #table class="material" [headerHeight]="40" [limit]="10" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'"
+          [rows]="rows" [loadingIndicator]="loadingIndicator" [selected]="selected" [selectionType]="'radiobutton'" (select)='onSelect($event)'
+          [rows]="rows" [columns]="columns">
+          <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="true" [resizeable]="false" [headerCheckboxable]="false"
+            [checkboxable]="true">
+          </ngx-datatable-column>
+          <ngx-datatable-column name="email">
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row">
+              <span title="Double click to edit" *ngIf="!editing[row.$$index + '-name']">
+                {{value}}
+              </span>
+              <input autofocus (blur)="updateValue($event, 'name', value, row)" *ngIf="editing[row.$$index + '-name']" type="text" [value]="value"
+              />
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="roles">
+            <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+              {{value}}
+      
+            </ng-template>
+          </ngx-datatable-column>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </ngx-datatable>
+      </div>
+</div>

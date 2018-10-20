@@ -1,0 +1,139 @@
+<div *ngIf='notVerified'>
+    <div widget class="card border-0 box-shadow" style="text-align: left; font-size: 18px;   padding: 6%;margin-bottom: 22px;">
+        <div style="    margin-bottom: 20px;" class="card card-outline-danger">
+            <div class="card-body text-center">
+              <p class="text-danger">متاسفانه اطلاعات احراز هویت شما ثبت نشده است</p>
+              <button (click)='gotoKYC()' class="btn btn-success btn-rounded w-100p mb-1 mr-1" type="button">احراز هویت</button>
+            </div>
+          </div>
+
+    </div>
+</div>
+
+<div *ngIf='!notVerified'>
+
+<div widget class="card border-0 box-shadow mb-4 box">
+
+    <div class="row">
+        <div class="col-md-12">
+          <div class="pendingTable">
+              <p class="mr-2" style="font-size: 20px">لیست تمام درخواست های تسویه</p>
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="BurnDataSource" dir='ltr'>
+
+              <ng-container matColumnDef="reqNum">
+                  <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
+                  <td mat-cell *matCellDef="let element"> {{element.burnRequestNumber}} </td>
+                </ng-container>
+              <ng-container matColumnDef="tokenPrice">
+                <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.tokenPrice}}
+    
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="submitDate">
+                <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
+                <td mat-cell *matCellDef="let element">
+    
+                  {{element.userSubmitDate}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="comment">
+                <th mat-header-cell *matHeaderCellDef> توضیحات </th>
+                <td mat-cell *matCellDef="let element">
+    
+                  {{element.adminComment}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.amount}}
+                </td>
+              </ng-container>
+    
+
+              <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                  <td mat-cell *matCellDef="let element">
+                      <span [ngClass]="{'badge-danger': element.status=='Rejected'||element.status=='Canceled', 'badge-info': element.status=='Pending'}"
+                      style="cursor: pointer;" class="badge badge-success mr-1">{{element.status}}</span>  
+      
+                  </td>
+                </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+    
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+        </div>
+      </div>
+</div>
+
+<div widget class="card border-0 box-shadow box">
+
+  <div class="row">
+      <div class="col-md-12">
+        <div class="pendingTable">
+            <p class="mr-2" style="font-size: 20px">لیست تمام درخواست های تسویه</p>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="TransferDataSource" dir='ltr'>
+
+            <ng-container matColumnDef="reqNum">
+                <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
+                <td mat-cell *matCellDef="let element"> {{element.transferRequestNumber}} </td>
+              </ng-container>
+            <ng-container matColumnDef="tokenPrice">
+              <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.tokenPrice}}
+  
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="comment">
+              <th mat-header-cell *matHeaderCellDef> توضیحات </th>
+              <td mat-cell *matCellDef="let element">
+  
+                {{element.adminComment}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="submitDate">
+              <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
+              <td mat-cell *matCellDef="let element">
+  
+                {{element.userSubmitDate}}
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.amount}}
+              </td>
+            </ng-container>
+  
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                <td mat-cell *matCellDef="let element">
+                    <span [ngClass]="{'badge-danger': element.status=='Closed'||element.status=='Canceled', 'badge-info': element.status=='Pending'}"
+                    style="cursor: pointer;" class="badge badge-success mr-1">{{element.status}}</span>  
+    
+                </td>
+              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+  
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+
+</div>

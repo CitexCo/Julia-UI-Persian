@@ -1,0 +1,38 @@
+<div widget class="card chartBox border-0">
+    <div class="card-header transparent border-0 text-muted">
+
+       
+    </div>
+    <div class="card-body pt-0 pl-2 pr-2 pb-2 widget-body">
+        <div class="text-center mb-2 fs-13">
+ 
+        </div>
+        <div  class="info">
+             <p>2018/8/9</p><p>تاریخ ثبت نام</p>
+        </div>
+        <div class="kyc">
+                <button *ngIf="!KYCVerified && !isAdmin" type="button" style="    width: 21%;
+                margin: 2%;" class="btn btn-success" (click)="kyc()">
+                احراز هویت
+                      </button>
+             <p  *ngIf="!KYCVerified && !isAdmin" class="authTxt text-danger">ثبت نشده</p>
+              <p   *ngIf="KYCVerified || isAdmin" class="authTxt text-success">ثبت شده</p>
+              <p  class="auth">: وضعیت احراز هویت</p>
+
+        </div>
+        <div class="w-500 h-1500p">
+            <ngx-charts-pie-chart
+                [scheme]="colorScheme"
+                [results]="data"
+                [legend]="showLegend"
+                [explodeSlices]="explodeSlices"
+                [labels]="showLabels"
+                [doughnut]="doughnut"
+                [gradient]="gradient"
+                (select)="onSelect($event)">
+            </ngx-charts-pie-chart>   
+
+        </div>
+
+    </div>
+</div>

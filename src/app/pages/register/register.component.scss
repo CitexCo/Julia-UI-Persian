@@ -1,0 +1,57 @@
+.register-container{
+    position: absolute;
+    .card{
+        .card-header{
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            margin-top: -40px;
+            border-radius: 50%;
+            font-size: 36px;
+        }
+    }
+}
+.card{
+    a {
+        color: #ffffff;
+    }
+}
+
+.alert-right {
+    float: right;
+}
+
+.alert-container {
+    height: 10px;
+}
+
+.row {
+    display: flex;
+}
+
+
+.has-account {
+    width: 40%;
+    float: left;
+}
+
+.rule-check {
+    color: #fff; 
+    display: flex; 
+    flex-direction: row-reverse;
+    float: right;
+
+    input {
+        margin-top: auto; 
+        margin-bottom: auto; 
+        margin-left: 5px;
+    }
+    span {
+        margin-top: auto; 
+        margin-bottom: auto; 
+    }
+}
+
+.btn {
+    font-size: 18px;
+}

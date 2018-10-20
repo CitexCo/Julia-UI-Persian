@@ -1,0 +1,28 @@
+.err{
+    color: red;
+    text-align: center;
+    font-size: 18px;
+}
+table {
+    width: 100%;
+  }
+
+  .mat-header-cell {
+    font-size: 20px;
+
+}
+th.mat-header-cell {
+    text-align: right!important;
+    padding: 12px!important;
+}
+td.mat-cell {
+
+    padding: 12px!important;
+}
+.pendingTable{
+    padding: 9% 14px;
+}
+.attch{
+    border-top: 1px solid #6c757d;
+    padding: 13px;
+}

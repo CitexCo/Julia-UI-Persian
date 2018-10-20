@@ -1,0 +1,21 @@
+<div class="account-container" dir="rtl">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h2>اطلاعات حساب</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form class="gateway-form">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Address" value="" (keyup.enter)="updateInfo($event)">
+                </mat-form-field>
+            </form>
+            <div class="info-container full-width">
+                <p>آدرس: <span>{{ account.address }}</span></p>
+                <p>تعداد توکن:  <span dir="ltr">{{ account.tokens }} CIX</span></p>
+                <p>اتریوم:  <span dir="ltr">{{ account.balance }} ETH</span></p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

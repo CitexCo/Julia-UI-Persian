@@ -1,0 +1,63 @@
+<div widget class="card border-0 box-shadow box">
+
+    <div class="row">
+        <div class="col-md-12">
+          <div class="pendingTable">
+              <p style="font-size: 20px">سوابق تمام خرید ها</p>
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" dir='ltr'>
+              <!-- <ng-container matColumnDef="attach">
+                <th mat-header-cell *matHeaderCellDef> ارسال مدارک </th>
+                <td mat-cell *matCellDef="let element">
+                  <button (click)='getRecipt(element.receiptNumber)' data-toggle="modal" data-target="#attachModal" class="btn btn-primary w-100p mb-1 mr-1" type="button">پیوست</button>
+    
+                </td>
+              </ng-container> -->
+
+              <ng-container matColumnDef="exchanger">
+                  <th mat-header-cell *matHeaderCellDef> صراف </th>
+                  <td mat-cell *matCellDef="let element"> {{element.exchangerEmail}} </td>
+                </ng-container>
+              <ng-container matColumnDef="code">
+                <th mat-header-cell *matHeaderCellDef> کد سفارش </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.receiptNumber}}
+    
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="expire">
+                <th mat-header-cell *matHeaderCellDef> مهلت پرداخت </th>
+                <td mat-cell *matCellDef="let element">
+    
+                  {{element.codeExpiration}}
+                </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.amount}}
+                </td>
+              </ng-container>
+    
+
+              <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+                  <td mat-cell *matCellDef="let element">
+                      <span [ngClass]="{'badge-danger': element.status=='Expired'||element.status=='Rejected', 'badge-info': element.status=='Pending','badge-success': element.status=='Approved'}"
+                      style="cursor: pointer;" class="badge badge-success mr-1">{{element.status}}</span>  
+      
+                  </td>
+                </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+    
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+        </div>
+      </div>
+</div>
+

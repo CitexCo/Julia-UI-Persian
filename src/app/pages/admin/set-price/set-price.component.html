@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-3"></div>
+    <div widget class="card border-0 box-shadow col-md-6" >
+        <div *ngIf='err' class="alert alert-danger alert-dismissible fade show" role="alert">
+          <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+            <span aria-hidden="true">×</span>
+          </button>
+          {{Msg}} 
+        </div>
+        <div *ngIf='success' class="alert alert-success alert-dismissible fade show" role="alert">
+            <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+              <span aria-hidden="true">×</span>
+            </button>
+            {{Msg}} 
+          </div>
+      <form [formGroup]="priceForm" >
+        <div class="form-group">
+          <label style="    padding: 12px;"  for="input-10"> {{lastPrice}} : قیمت هر توکن</label>
+          <input formControlName='price' class="form-control" id="input-10" type="number" >
+        </div>
+        <button (click)='submitForm()' class="btn btn-success btn-rounded w-100p mb-1 mr-1 pull-left" type="button">ثبت</button>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>

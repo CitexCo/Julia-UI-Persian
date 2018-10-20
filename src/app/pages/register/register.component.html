@@ -1,0 +1,72 @@
+<flash-messages></flash-messages>  
+<div  *ngIf="!logdin" class="d-flex justify-content-center align-items-center w-100 h-100 register-container">
+    <div class="col-xl-4 col-md-6 col-10">
+        <div class="card border-0 box-shadow rounded-0">
+            <div class="card-header d-flex justify-content-center align-items-center border-0 box-shadow">
+                <i class="fa fa-registered" aria-hidden="true"></i>
+            </div>
+            <div class="card-body text-center pb-1">
+                <h2 style="color:aliceblue;">ایجاد حساب کاربری</h2>
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+
+                    <div class="form-group">
+                        <input [formControl]="email" class="form-control validation-field" placeholder="ایمیل" type="text"> 
+                        <div class="alert-container">
+                            <small class="text-danger alert-right" *ngIf="form.get('email').touched">
+                                <span *ngIf="form.get('email').hasError('required')">
+                                    ایمیل وارد نشده است
+                                </span>
+                                <span *ngIf="form.get('email').hasError('invalidEmail')">
+                                    آدرس ایمیل نا معتبر است
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input [formControl]="password" class="form-control validation-field" placeholder="رمز عبور" type="رمز عبور" type="password" minlength="6">
+                        <div class="alert-container">
+                            <small class="text-danger alert-right" *ngIf="form.get('password').touched">
+                                <span *ngIf="form.get('password').hasError('required')">
+                                    رمز عبور وارد نشده است
+                                </span>
+                                <span *ngIf="form.get('password').hasError('minlength')">
+                                    رمز عبور حداقل باید شامل 6 حرف باشد
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input [formControl]="confirmPassword" class="form-control validation-field" placeholder="تکرار رمز عبور" type="password">
+                        <div class="alert-container">
+                            <small class="text-danger alert-right" *ngIf="form.get('confirmPassword').touched">
+                                <span *ngIf="form.get('confirmPassword').hasError('required')">
+                                    تکرار رمز عبور وارد نشده است
+                                </span>
+                                <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">
+                                    رمز عبور و تکرار رمز عبور یکسان نیست
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input [formControl]="referal" class="form-control validation-field" placeholder="اگر کد معرف دارید وارد نمایید" type="text">  
+                    </div>
+                    <div class="has-account">
+                        <p style="color: #ffff">آیا حساب کاربری دارید؟
+                            <span>
+                                <a routerLink="/login" class="transition" style="color:rgb(8, 178, 201); font-size: 16px"> وارد شوید</a>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="custom-control custom-checkbox rule-check">
+                        <input type="checkbox" checked>
+                            <span>قوانین و مقررات سایت را می پذیرم</span>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="!form.valid" class="btn btn-block" type="submit">ثبت نام</button>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<h2>کاربرانی که شما معرفی کرده اید</h2>
+<p class="text-muted">شما میتوانید کاربرانی که با کد معرف شما ثبت نام کرده اند را ببینید</p>
+
+<div class="row">
+    <div class="col-12 mb-4">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <p  style="font-family: initial" class="mb-0">{{UserId}}</p><p>کد معرف شما</p> <br>
+                <a style="font-family: initial ; color: blue" href={{UserLink}} class="mb-0">{{UserLink}}</a> <p>لینک معرفی به دوستان</p>
+
+            </div>
+
+            <div class="form-group">
+                <div class="input-group pull-right col-md-4">
+                        <span class="input-group-append">
+                                <button type="button" class="btn btn-info">Go!</button>
+                            </span>
+                    <input (input)="onSearchChange($event.target.value)" type="text" class="form-control" placeholder="Search for...">
+
+                </div>
+            </div>
+            <div class="card-body pt-0 widget-body">
+                <p *ngIf="!hasReferal" class="text-right fs-18 text-gray">متاسفانه شما هنوز کابری را معرفی نکرده اید</p>
+                <div *ngIf="hasReferal" class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ایمیل</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let email of arr">
+                                <td>{{email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

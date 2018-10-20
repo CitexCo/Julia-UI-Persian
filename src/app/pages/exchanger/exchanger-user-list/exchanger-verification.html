@@ -1,0 +1,56 @@
+<mat-horizontal-stepper class="stepper-container" [linear]="isLinear" #stepper dir="rtl">
+    <mat-step [stepControl]="userFormGroup">
+        <form class="user-info" [formGroup]="userFormGroup">
+            <ng-template matStepLabel>مشاهده اطلاعات کاربر</ng-template>
+            <div class="flex-row">
+                <div class="image-wrapper">
+                    <img [src]="imageSource" alt="" (click)="toggleImageSource()">
+                </div>
+                <div class="flex-column w100">
+                    <div class="item-container flex-column">
+                        <label for="">نام و نام خانوادگی</label>
+                        <div class="item-value-wrapper">{{ userInfo.firstName }} {{ userInfo.lastName }}</div>
+                    </div>
+                    <div class="item-container flex-column">
+                        <label for="">شماره تماس</label>
+                        <div class="item-value-wrapper">{{ userInfo.telephone }}</div>
+                    </div>
+                    <div class="item-container flex-column">
+                        <label for="">ایمیل</label>
+                        <div class="item-value-wrapper">{{ userInfo.email }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-wrapper">
+                <button mat-raised-button color="accent" matStepperNext>مرحله بعد</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="receiptFormGroup">
+        <form class="user-receipt" [formGroup]="receiptFormGroup">
+            <ng-template matStepLabel>مشاهده رسید</ng-template>
+
+            <div class="flex-row">
+                <div class="add-image-container">
+                    <i *ngIf="photo" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                    <img *ngIf="photo; else addImage" [attr.src]="photo" width="400px" height="300px">
+                    <ng-template #addImage>
+                        <input hidden="true" id="input-file-id" type="file" (change)="selectImage($event)" />
+                        <button class="add-image-btn">
+                            <label for="input-file-id">انتخاب تصویر</label>
+                        </button>
+                    </ng-template>
+                </div>
+                <div class="comment flex-column">
+                    <textarea name="" id="" cols="60" rows="5" placeholder="توضیحات" #comment></textarea>
+                </div>
+            </div>
+
+            <div class="btn-wrapper">
+                <button mat-raised-button color="accent" matStepperNext (click)="confirmUser(comment.value)">تایید</button>
+                <button mat-button color="primary" matStepperPrevious>بازگشت</button>
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper>

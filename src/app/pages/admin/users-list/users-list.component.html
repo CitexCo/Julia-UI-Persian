@@ -1,0 +1,305 @@
+<div class="form-group">
+    <div class="input-group col-md-4">
+        <input (input)="onSearchChange($event.target.value)" type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-append">
+            <button type="button" class="btn btn-info">Go!</button>
+        </span>
+    </div>
+</div>
+<div class="col-lg-12 mb-4">
+    <div widget class="card border-0 box-shadow">
+        <div class="card-header transparent border-0 text-muted">
+            <h5 class="mb-0">لیست کاربران</h5>
+
+        </div>
+        <div class="card-body pt-0 widget-body">
+                <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource" dir='ltr'>
+                          <ng-container matColumnDef="activity">
+                            <th mat-header-cell *matHeaderCellDef> فعالیت کاربران </th>
+                            <td mat-cell *matCellDef="let element">
+                
+                                    <button data-toggle="modal" data-target="#activModal" class="btn btn-outline-success w-100p mb-1 mr-1" (click)="activity(element.email)"
+                                    type="button">فعال</button>
+                                <button data-toggle="modal" data-target="#deactivModal" class="btn btn-outline-danger w-100p mb-1 mr-1" (click)="activity(element.email)"
+                                    type="button">غیرفعال</button>
+                
+                            </td>
+                          </ng-container>
+                          <!-- msg Column -->
+                          <ng-container matColumnDef="msg">
+                            <th mat-header-cell *matHeaderCellDef> پیام </th>
+                            <td mat-cell *matCellDef="let element">
+                              
+                                    <button class="btn btn-outline-primary " type="button">ارسال پیام</button>
+    
+                            </td>
+                          </ng-container>
+                          <!-- kyc Column -->
+                          <ng-container matColumnDef="kyc">
+                            <th mat-header-cell *matHeaderCellDef> احراز هویت </th>
+                            <td mat-cell *matCellDef="let element"> 
+                                    <button data-toggle="modal" data-target="#kycModal" (click)="getKyc(element.email)" class="btn btn-outline-warning w-100p mb-1 mr-1"
+                                    type="button"> احراز هویت</button>   
+                            </td>
+                          </ng-container>
+                          <!-- email Column -->
+                          <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef> ایمیل </th>
+                            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                      </div>
+
+            <!-- <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th>فعالیت کاربران</th>
+                        <th>پیام</th>
+                        <th> احراز هویت</th>
+                        <th>ایمیل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let email of users">
+
+                        <td>
+                            <button data-toggle="modal" data-target="#activModal" class="btn btn-outline-success w-100p mb-1 mr-1" (click)="activity(email)"
+                                type="button">فعال</button>
+                            <button data-toggle="modal" data-target="#deactivModal" class="btn btn-outline-danger w-100p mb-1 mr-1" (click)="activity(email)"
+                                type="button">غیرفعال</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary " type="button">ارسال پیام</button>
+                        </td>
+                        <td>
+                            <button data-toggle="modal" data-target="#kycModal" (click)="getKyc(email)" class="btn btn-outline-warning w-100p mb-1 mr-1"
+                                type="button"> احراز هویت</button>
+                        </td>
+
+                        <td>{{email}}</td>
+
+
+
+                    </tr>
+                </tbody>
+            </table> -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="kycModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{selectedEmail}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="KYCVerified" class="col-md-12 preview pt-2 ">
+                    <div class="element col-md-12">
+                            <div class="verifyTitle ">
+                                    <i>{{firstName}} &nbsp;</i>
+                                </div>
+                        <div class="verifyTxt ">
+                            <strong class="text-truncate">نام</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="element col-md-12">
+                            <div class="verifyTitle">
+                                    <i>{{lastname}} &nbsp;</i>
+                                </div>
+                        <div class="verifyTxt ">
+                            <strong class="text-truncate">نام خانوادگی</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="element col-md-12">
+                            <div class="verifyTitle">
+                                    <i>{{telephone}}</i>
+                                </div>
+                        <div class="verifyTxt ">
+                            <strong class="text-truncate">تلفن</strong>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="element col-md-12">
+                        <div class="verifyTxt ">
+                            <strong class="text-truncate">Address</strong>
+                        </div>
+                        <div class="verifyTitle">
+                            <i>{{address}} &nbsp;</i>
+                        </div>
+                    </div> -->
+
+
+
+                    <div class="element col-md-12">
+                            <div style="font-family: initial;    font-size: 15px;" class="verifyTitle">
+                                    <i>{{walletAddress}} &nbsp;</i>
+                                </div>
+                        <div class="verifyTxt ">
+                            <strong class="text-truncate">آدرس ولت</strong>
+                        </div>
+
+                    </div>
+                    <div style="    margin-top: 12px;border-top: 1px solid;padding: 12px;" class="element col-md-12">
+                            <div class="verifyTxt ">
+                                    <strong class="text-truncate">عکس پرسنلی</strong>
+                                </div>
+                            <div class="verifyTitle">
+                                    <img style="    max-width: 400px;" [src]=imageService.getImg(passImg)>
+                                </div>
+
+
+                    </div>
+
+                </div>
+                <div *ngIf='!KYCVerified'>
+                    <p style="color: red;font-size: 19px;">این کاربر هنوز فرم احراز هویت ارسال نکرده است</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+
+
+
+<div class="modal fade" id="activModal" tabindex="-1" role="dialog" aria-labelledby="modal-warning-label">
+    <div *ngIf="!err && !success" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-warning">
+                <h4 class="modal-title" id="modal-warning-label">
+                    <i class="fa fa-exclamation"></i>اخطار</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                آیا از فعال کردن این کاربر اطمینان دارید؟
+                <br> {{selectedUserForActivity}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)='active()' class="btn btn-warning">بله</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">خیر</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="err" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-danger">
+                <h4 class="modal-title" id="modal-danger-label">
+                    <i class="fa fa-exclamation"></i>Error</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{Msg}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="success" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-success">
+                <h4 class="modal-title" id="modal-success-label">
+                    <i class="fa fa-exclamation"></i>تمام</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{Msg}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="deactivModal" tabindex="-1" role="dialog" aria-labelledby="modal-warning-label">
+    <div *ngIf="!err && !success" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-warning">
+                <h4 class="modal-title" id="modal-warning-label">
+                    <i class="fa fa-exclamation"></i>اخطار</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                آیا از غیر فعال کردن این کاربر اطمینان دارید؟
+                <br> {{selectedUserForActivity}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)='deactive()' class="btn btn-warning">بله</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">خیر</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="err" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-danger">
+                <h4 class="modal-title" id="modal-danger-label">
+                    <i class="fa fa-exclamation"></i>Error</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{Msg}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="success" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header state modal-success">
+                <h4 class="modal-title" id="modal-success-label">
+                    <i class="fa fa-exclamation"></i>تمام</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{Msg}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>

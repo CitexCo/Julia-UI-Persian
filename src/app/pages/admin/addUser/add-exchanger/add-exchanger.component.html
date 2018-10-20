@@ -1,0 +1,163 @@
+<div *ngIf='!noAccess' widget class="card border-0 box-shadow box">
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+        <div id="accordion-1" role="tablist" aria-multiselectable="true">
+            <div  class="card collapsed"  style="cursor: pointer;">
+                <div class="card-header"  data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" role="tab" id="headingThree">
+                  <h5 class="mb-0">
+                    <a class="" style="color: #3E50B4">
+                      ایجاد صراف جدید
+                    </a>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse" data-parent="#accordion-1" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="card-body">
+
+                      <div class="">
+                          <div widget class="card border-0 box-shadow">
+                              <div class="card-header transparent border-0 text-muted">
+                                  <h5 class="mb-0">فرم ایجاد صراف</h5>
+       
+                              </div>
+                              <div class="card-body widget-body">
+                                  <div *ngIf='success' widget class="card ">
+                                      <div class="card card-outline-success text-center">
+                                          <div class="card-body">
+                                              <blockquote class="card-bodyquote">
+                      
+                                                  <footer style="    font-size: 21px;" > {{msg}} </footer>
+                                                  <div class='col-md-12'>
+                                                      <button type="button" (click)='goBack()' style="width: 21%;margin: 2%;    font-size: 19px;" class="btn btn-success " data-toggle="modal"
+                                                          data-target="#exampleModal">
+                                                          بازگشت
+                                                      </button>
+                                                  </div>
+                                              </blockquote>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <form *ngIf=' !success' class="form" [formGroup]="addExchangerForm">
+                                      <div class="form-group" [ngClass]="{'has-danger' : ( addExchangerForm.get('nickName').hasError('required')), 'has-success' : !addExchangerForm.get('nickName').hasError('required')}">
+                                          <label for="nickName">نام کاربری</label>
+                                          <input formControlName="nickName" id="nickName" class="form-control" >
+                                      </div>
+                                      <div class="form-group" [ngClass]="{'has-danger' : ( addExchangerForm.get('email').hasError('required')) || (addExchangerForm.get('email').hasError('email')), 
+                                      'has-success' : !addExchangerForm.get('email').hasError('required') && !addExchangerForm.get('email').hasError('email')}">
+                                          <label for="email-b-f">ایمیل</label>
+                                          <input formControlName="email" id="email-b-f" class="form-control" type="email">
+                                      </div>
+                                      <div class="form-group" [ngClass]="{'has-danger' : ( addExchangerForm.get('name').hasError('required')), 'has-success' : !addExchangerForm.get('name').hasError('required')}">
+                                          <label for="name">نام</label>
+                                          <input formControlName="name" id="name" class="form-control">
+                                      </div>
+                                      <div class="form-group" [ngClass]="{'has-danger' : ( addExchangerForm.get('managerName').hasError('required')), 'has-success' : !addExchangerForm.get('managerName').hasError('required')}">
+                                          <label for="managerName">نام مدیر</label>
+                                          <input formControlName="managerName" id="managerName" class="form-control">
+                                      </div>
+                                      <div class="form-group" [ngClass]="{'has-danger' : ( addExchangerForm.get('telephone').hasError('required')), 'has-success' : !addExchangerForm.get('telephone').hasError('required')}">
+                                          <label for="telephone">تلفن</label>
+                                          <input formControlName="telephone" id="telephone" class="form-control" type="number">
+                                      </div>
+                                      <div class="form-group" [ngClass]="{'has-danger' : ( addExchangerForm.get('address').hasError('required')), 'has-success' : !addExchangerForm.get('address').hasError('required')}">
+                                          <label for="address">آدرس</label>
+                                          <input formControlName="address" id="address" class="form-control">
+                                      </div>
+                                      <div class="">
+                                          <div class=" mb-4 pull-right img-container">
+                                              <h6>عکس پرسنلی</h6>
+                                              <!-- <input type="file"  (change)="image($event)" formControlName="image" > -->
+                                              <input style="    left: 12px;" type="file" accept="image/*" formControlName="img" id="imginput" (change)="PersonImage($event)"
+                                                  class="img-upload-btn" />
+              
+                                              <button class="btn btn-info btn-block rounded-0" type="button">
+                                                  <span *ngIf="!photo">
+                                                      <i class="fa fa-upload"></i> Select Image... </span>
+                                                  <span *ngIf="photo">
+                                                      <i class="fa fa-refresh"></i> Change Image... </span>
+                                              </button>
+              
+                                              <div class="image-wrapper">
+                                                  <i *ngIf="photo" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                                  <img style="    max-width: 300px;" [attr.src]="photo" *ngIf="photo" width="100%">
+                                                  <!-- <img src="assets/img/app/no-image.png" *ngIf="!photo" width="100%"> -->
+                                              </div>
+              
+              
+                                              <div class="err" *ngIf="addExchangerForm.get('img').hasError('required')">ارسال عکس الزامی است</div>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group">
+                                          <button class="btn btn-success btn-block" (click)='submit()' type="submit">ثبت</button>
+                                      </div>
+                                      <div *ngIf='err' class="alert alert-danger alert-dismissible fade show" role="alert">
+                                          <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                                            <span aria-hidden="true">×</span>
+                                          </button>
+                                          {{msg}}
+                                         </div>
+                                  </form> 
+                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>       
+              </div>
+      </div>
+      <div class="col-md-3">
+
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" dir='ltr'>
+                <ng-container matColumnDef="managerName">
+                  <th mat-header-cell *matHeaderCellDef> نام مدیر </th>
+                  <td mat-cell *matCellDef="let element">
+                  {{element.lastName}}
+      
+                  </td>
+                </ng-container>
+                <!-- msg Column -->
+                <ng-container matColumnDef="telephone">
+                  <th mat-header-cell *matHeaderCellDef> تلفن </th>
+                  <td mat-cell *matCellDef="let element">
+
+                  {{element.telephone}}
+                  </td>
+                </ng-container>
+                <!-- name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> نام </th>
+                  <td mat-cell *matCellDef="let element"> 
+                  {{element.firstName}}
+                  </td>
+                </ng-container>
+                <!-- email Column -->
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef> ایمیل </th>
+                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+      
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+      </div>
+    </div>
+</div>
+
+
+<div *ngIf='noAccess' class="card card-outline-danger">
+        <div class="card-body text-center">
+            <p style="font-size: 20px" class="text-danger">شما به این بخش دسترسی ندارید</p>
+          </div>
+      </div>

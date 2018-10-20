@@ -1,0 +1,253 @@
+<div class="title">
+        <p style="    font-size: 25px;">تایید اطلاعات احراز هویت</p>
+</div>
+<!-- <div>
+    <p>
+        here you can Verify or not your useres information</br>
+        by just clicking on correct or incorrect values you can accept or denied informations
+    </p>
+</div> -->
+
+
+<mat-accordion *ngIf="!noUser">
+        
+        <mat-expansion-panel (click)="getmail(user.email)" (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let user of users">
+                
+                <mat-expansion-panel-header>
+                        <mat-panel-title>
+                                {{user.email}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+
+                        </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-right mt-4">
+
+                        
+                        <div class="form-group">
+                                <!--  <mat-radio-group class="rad" formControlName="verifyFirstName">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+                                <p class="val">{{user.firstName}}</p>
+                                <label class="label">: نام</label> -->
+                                <mat-grid-list cols="12" rowHeight="100px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyFirstName">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+                                                <p class="val">{{user.firstName}}</p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label">: نام </label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+
+
+
+                        </div>
+                        <div class="form-group">
+                                <!-- <mat-radio-group class="rad" formControlName="verifyLastName">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false"> نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+                                <p class="val">{{user.lastName}}</p>
+                                <label class="label">: نام خانوادگی</label> -->
+                                <mat-grid-list cols="12" rowHeight="100px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyLastName">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+
+                                                <p class="val">{{user.lastName}}</p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label">: نام خانوادگی</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+
+                        </div>
+                        <div class="form-group">
+                                <!-- <mat-radio-group class="rad" formControlName="verifyBirthDate">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+                                <p class="val">{{user.birthDate}}</p>
+                                <label class="label">: تاریخ تولد</label> -->
+                                <mat-grid-list cols="12" rowHeight="100px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyBirthDate">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+
+                                                <p class="val">{{user.birthDate}}</p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label">: تاریخ تولد</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+
+                        </div>
+                        <!-- <div class="form-group"> -->
+                                <!-- <mat-radio-group class="rad" formControlName="verifyAddress">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+                                <p class="val">{{user.address}}</p>
+                                <label class="label">: آدرس</label> -->
+
+                                <!-- <mat-grid-list cols="12" rowHeight="100px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyAddress">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+
+                                                <p class="val">{{user.lastName}}</p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label">: نام خانوادگی</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list> -->
+
+                        <!-- </div> -->
+                        <div class="form-group">
+                                <!-- <mat-radio-group class="rad" formControlName="verifyTelephone">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+                                <p class="val">{{user.telephone}}</p>
+                                <label class="label">: شماره تلفن</label> -->
+
+                                <mat-grid-list cols="12" rowHeight="100px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyTelephone">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+
+                                                <p class="val">{{user.telephone}}</p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label">: شماره تلفن</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+
+                        </div>
+                        <div class="form-group">
+                                <!-- <mat-radio-group class="rad" formControlName="verifyWallet">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+                                <p class="val">{{user.walletAddress}}</p> 
+                                <label class="label">آدرس ولت:</label>-->
+
+                                <mat-grid-list cols="12" rowHeight="100px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyWallet">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+
+                                                <p class="val">{{user.walletAddress}}</p>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label">آدرس کیف پول:</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+
+                                
+                        </div>
+                        <div class="form-group">
+                                <!-- <mat-radio-group class="rad" formControlName="verifyPassportImage">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+
+                                <img style="max-width: 400px;" src="/{{user.passportImageAddress}}" alt=""> 
+                                <label class="label">عکس پاسپورت</label> -->
+
+                                <mat-grid-list cols="12" rowHeight="400px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyPassportImage">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+                                            <!-- /{{user.passportImageAddress}} -->
+                                                <img style="max-width: 400px;" [src]="imgService.getImg(user.passportImageAddress)" alt=""> 
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3" rowspan="1">
+                                                <label class="label">عکس پرسنلی</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+
+                                
+                        </div>
+                        <div class="form-group">
+                                <!-- <mat-radio-group class="rad" formControlName="verifyImage">
+                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                </mat-radio-group>
+
+
+                                <img style="max-width: 400px;" src="/{{user.imageAddress}}" alt="">
+ 
+                                <label class="label">عکس عکس شناسایی</label> -->
+                                <mat-grid-list cols="12" rowHeight="400px">
+                                        <mat-grid-tile colspan="3">
+                                                <mat-radio-group class="rad" formControlName="verifyImage">
+                                                        <mat-radio-button [value]="true">درست</mat-radio-button>
+                                                        <mat-radio-button [value]="false">نادرست</mat-radio-button>
+                                                </mat-radio-group>
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="6">
+
+                                                <img style="max-width: 400px;" [src]="imgService.getImg(user.imageAddress)" alt="">
+                                        </mat-grid-tile>
+                                        <mat-grid-tile colspan="3">
+                                                <label class="label"> عکس شناسایی</label>
+                                        </mat-grid-tile>
+                                </mat-grid-list>
+                        </div>
+                        <button mat-raised-button color="warn" class="btn" type="submit">تایید</button>
+                </form> 
+
+        </mat-expansion-panel>
+</mat-accordion>
+
+<div class="noUser" *ngIf="noUser">
+        <p>هنوز کابری درخواست تایید احراز هویت نداده است</p>
+</div>
+
+<!-- <nav style="margin-top: 2%" aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link">Previous</a></li>
+            <li class="page-item active"><a class="page-link" >1</a></li>
+
+            <li class="page-item"><a class="page-link" >Next</a></li>
+        </ul>
+    </nav> -->

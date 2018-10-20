@@ -1,0 +1,145 @@
+<div *ngIf='!noAccess' widget class="card border-0 box-shadow box mb-4">
+  <div class="row">
+      <div class="col-md-3"></div>
+        <div class="col-md-6 mb-4 mt-4">
+            <div *ngIf='success' widget class="card ">
+                <div class="card card-outline-success text-center">
+                    <div class="card-body">
+                        <blockquote class="card-bodyquote">
+
+                            <footer style="    font-size: 21px;" > {{msg}} </footer>
+                            <div class='col-md-12'>
+                                <button type="button" (click)='goBack()' style="width: 21%;margin: 2%;    font-size: 19px;" class="btn btn-success " data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    بازگشت
+                                </button>
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf='err' class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
+                  <span aria-hidden="true">×</span>
+                </button>
+                {{msg}}
+               </div>
+
+            <div *ngIf=' !success' widget class="card ">
+                <div class="card-header transparent border-0 text-muted">
+                    <h5 class="mb-0">ثبت ادمین جدید</h5>
+       
+                </div>
+                <div class="card-body widget-body">
+
+                    <form  [formGroup]="addAdminForm" class="form">
+
+                        <div class="form-group" [ngClass]="{'has-danger' : ( addAdminForm.get('email').hasError('required')) || (addAdminForm.get('email').hasError('email')), 
+                        'has-success' : !addAdminForm.get('email').hasError('required') && !addAdminForm.get('email').hasError('email')}">
+                            <label for="email-b-f">ایمیل</label>
+                            <input formControlName="email" id="email-b-f" class="form-control" type="email">
+                        </div>
+                        <div class="form-group" [ngClass]="{'has-danger' : ( addAdminForm.get('firstname').hasError('required')), 'has-success' : !addAdminForm.get('firstname').hasError('required')}">
+                            <label for="firstname">نام</label>
+                            <input formControlName="firstname" id="firstname" class="form-control">
+                        </div>
+                        <div class="form-group"  [ngClass]="{'has-danger' : ( addAdminForm.get('lastname').hasError('required')), 'has-success' : !addAdminForm.get('lastname').hasError('required')}">
+                            <label for="lastname">نام خانوادگی</label>
+                            <input formControlName="lastname" id="lastname" class="form-control">
+                        </div>
+                        <div class="form-group roles-gp" dir="ltr">
+                          <label style="color: blue" > : دسترسی ها</label>                        
+                            <div class="custom-control custom-checkbox">
+                                <input (click)="onClick($event)" name='roles[]' value="verifyKYC" formControlName="roles" type="checkbox" class="custom-control-input" id="checkboxDefault" >
+                                <label  class="custom-control-label" for="checkboxDefault"> احراز هویت</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input name='roles[]' value="changeRoles"  formControlName="roles" type="checkbox" class="custom-control-input checkbox-primary" id="checkboxPrimary" >
+                                <label  class="custom-control-label" for="checkboxPrimary">تغییر دسترسی</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input (click)="onClick($event)" name='roles[]' value="answerTickets"  formControlName="roles" type="checkbox" class="custom-control-input checkbox-success" id="checkboxSuccess" >
+                                <label class="custom-control-label" for="checkboxSuccess">پاسخ به تیکت</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input (click)="onClick($event)" name='roles[]' value="userManager"  formControlName="roles" type="checkbox" class="custom-control-input checkbox-info" id="checkboxInfo" >
+                                <label class="custom-control-label" for="checkboxInfo">مدیریت کاربران</label>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class=" mb-4 pull-right img-container">
+                                <h6>عکس پرسنلی</h6>
+                                <!-- <input type="file"  (change)="image($event)" formControlName="image" > -->
+                                <input style="    left: 12px;" type="file" accept="image/*" formControlName="img" id="imginput" (change)="PersonImage($event)"
+                                    class="img-upload-btn" />
+
+                                <button class="btn btn-info btn-block rounded-0" type="button">
+                                    <span *ngIf="!photo">
+                                        <i class="fa fa-upload"></i> Select Image... </span>
+                                    <span *ngIf="photo">
+                                        <i class="fa fa-refresh"></i> Change Image... </span>
+                                </button>
+
+                                <div class="image-wrapper">
+                                    <i *ngIf="photo" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                    <img style="    max-width: 300px;" [attr.src]="photo" *ngIf="photo" width="100%">
+                                    <!-- <img src="assets/img/app/no-image.png" *ngIf="!photo" width="100%"> -->
+                                </div>
+
+
+                                <div class="err" *ngIf="addAdminForm.get('img').hasError('required')">ارسال عکس الزامی است</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block" (click)='submit()'   type="submit">ثبت</button>
+                        </div>
+                    </form> 
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+
+      </div>
+  </div>
+  <div *ngIf='!noAccess' widget class="card border-0 box-shadow box">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" dir='ltr'>
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> نام خانوادگی </th>
+            <td mat-cell *matCellDef="let element">
+            {{element.lastName}}
+
+            </td>
+          </ng-container>
+          <!-- msg Column -->
+
+          <!-- name Column -->
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> نام </th>
+            <td mat-cell *matCellDef="let element"> 
+            {{element.firstName}}
+            </td>
+          </ng-container>
+          <!-- email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> ایمیل </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+  </div>
+
+
+
+      <div *ngIf='noAccess' class="card card-outline-danger">
+          <div class="card-body text-center">
+              <p style="font-size: 20px" class="text-danger">شما به این بخش دسترسی ندارید</p>
+            </div>
+        </div>

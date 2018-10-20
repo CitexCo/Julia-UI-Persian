@@ -1,0 +1,22 @@
+<div class="account-container" dir="rtl">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h2>اطلاعات توکن</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form class="gateway-form">
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Cotnract Address" (keyup.enter)="updateToken($event)">
+                </mat-form-field>
+            </form>
+            <div class="info-container full-width">
+                <p>آدرس توکن:    <span dir="ltr">{{ token.address }}</span></p>
+                <p>صاحب توکن:    <span dir="ltr">{{ token.owner }}</span></p>
+                <p>نام توکن:     <span dir="ltr">{{ token.name }} ({{ token.symbol }})</span></p>
+                <p>تعداد توکن:   <span dir="ltr">{{ token.totalSupply }} ({{ token.decimals }})</span></p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

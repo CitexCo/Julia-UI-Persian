@@ -1,0 +1,63 @@
+<div class="container">
+    <mat-card>
+        <mat-card-header dir="rtl">
+            <mat-card-title-group>
+                <mat-card-title>
+                    <h2>لیست رسیدهای ثبت شده</h2>
+                </mat-card-title>
+            </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="filter row" dir="rtl">
+                <mat-form-field style="width: 40%; margin-right: 20px;">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder=" کد پیگیری را وارد نمایید ...">
+                </mat-form-field>
+                <section class="pending-chkbox-container">
+                    <mat-checkbox (change)="filterReceipts($event)">
+                        نمایش لیست انتظار
+                    </mat-checkbox>
+                </section>
+            </div>
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" multiTemplateDataRows dir="rtl">
+                    <ng-container matColumnDef="{{column}}" *ngFor="let column of Columns; let i = index">
+                        <th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="Columns.length">
+                            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                <div class="flex-row" style="width: 100%">
+                                    <div class="comment-wrapper flex-column">
+                                        <div class="comment-header flex-row">
+                                            <label class="description-label" for="">توضیحات صراف:</label>
+                                        </div>
+                                        <div>
+                                            <p>{{ element.exchangerComment }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="comment-wrapper flex-column">
+                                        <div class="comment-header flex-row">
+                                            <label class="description-label" for="">توضیحات کاربر:</label>
+                                        </div>
+                                        <div>
+                                            <p>{{ element.userComment }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="Columns"></tr>
+                    <tr mat-row *matRowDef="let element; columns: Columns;" class="example-element-row"
+                        [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = element">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                </table>
+                <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

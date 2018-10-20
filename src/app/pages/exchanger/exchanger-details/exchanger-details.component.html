@@ -1,0 +1,45 @@
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div widget class="card border-0 box-shadow box">
+        <div style="text-align: center" class="ImgField">
+            <img class="exchangerImg" [src]=imageService.getImg(selectedExchanger.imageAddress)  alt="" srcset="">
+          </div>
+          <div class="row">
+              <div class="form-group col-md-6 detailsMd ">
+                  <label>{{selectedExchanger.lastName}}</label>
+                  <label  style="padding-left: 12px" for="amount" class="title form-control-label mt-1">نام خانوادگی</label>
+                </div>
+              <div class="form-group col-md-6 detailsMd">
+                  <label>{{selectedExchanger.firstName}}</label>
+                  <label  style="padding-right: 12px" for="amount" class="title form-control-label mt-1">: نام</label>
+                </div>
+
+          </div>
+          <div class="row">
+              <div class="form-group col-md-6 detailsMd ">
+                  <label>{{selectedExchanger.email}}</label>
+                  <label  style="padding-left: 12px" for="amount" class="title form-control-label mt-1">: ایمیل</label>
+                </div>
+              <div class="form-group col-md-6 detailsMd">
+                  <label>{{selectedExchanger.telephone}}</label>
+                  <label  style="padding-right: 12px" for="amount" class="title form-control-label mt-1">: تلفن</label>
+                </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-1"></div>
+              <div class="addressField form-group col-md-10 detailsMd ">
+                  <label  style="padding-left: 12px" for="amount" class="title form-control-label mt-1">: آدرس</label>
+                  <label>{{selectedExchanger.address}}</label>
+
+                </div>
+                <div class="col-md-1"></div>
+
+          </div>
+
+          </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>

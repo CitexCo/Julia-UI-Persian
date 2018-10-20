@@ -1,0 +1,87 @@
+<div class="col-lg-12 col-md-12 mb-4">
+    <div class="card welcomeCard">
+        <div class="card-header"> خوش آمدید </div>
+        <div class="card-body">
+            <p>قیمت هر توکن : {{lastPrice}}</p>
+            <p *ngIf='!isAdmin'>موجودی شما : {{balance}}</p>
+
+            <div *ngIf='!isAdmin' class="kycStatus">
+                
+                <p class="text-success" *ngIf='KYCVerified'>تایید شده</p>
+                <p class="text-warning" *ngIf='KYCUpdated'>در انتظار تایید</p>
+                <p class="text-danger" *ngIf='!KYCVerified'>ثبت نشده</p>
+               : وضعیت احراز هویت
+            </div>
+            <p *ngIf='!isAdmin'> {{userEmail}} : ایمیل شما</p>
+
+        </div>
+        <div class="card-footer">
+            {{userType}} : نوع حساب
+        </div>
+    </div>
+</div>
+<div class="row mb-2">
+    <!-- <div class="col-md-3"></div> -->
+    <div class="col-lg-6 mb-6 ">
+        <!-- <div id="chartContainer"  style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div> -->
+        <canvas class="chartBox" style=" background: #ffff;" id="canvas">{{ chartEu }}</canvas>
+    </div>
+    <div class="col-lg-6 mb-6 ">
+        <app-disk-space ></app-disk-space>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-6 " style="    margin-top: -8%;">
+        <!-- <div id="chartContainer2" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div> -->
+        <canvas class="chartBox" style=" background: #ffff;" id="canvas2">{{ chartEth }}</canvas>
+    </div>
+    <div class="col-lg-6 mb-6 " style="    margin: 43px 0;">
+        <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">Asset Tabel</h5>
+
+            </div>
+            <div class="card-body pt-0 widget-body">
+
+                <table class="table table-striped chartBox">
+                    <thead>
+                        <tr>
+                            <th>توکن</th>
+                            <th>مقدار</th>
+                            <th>مقدار سرمایه گذاری</th>
+                            <th>میزان خرید</th>
+                            <th>تاریخ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Token A</th>
+                            <td>0.04</td>
+                            <td>42</td>
+                            <td>12.7%</td>
+                            <td>2018/9/9</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Token B</th>
+                            <td>1.03</td>
+                            <td>53</td>
+                            <td>43.5%</td>
+                            <td>2018/9/6</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<div class="row">
+
+
+</div>

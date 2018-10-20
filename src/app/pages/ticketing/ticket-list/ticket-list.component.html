@@ -1,0 +1,106 @@
+<div id="accordion-1" role="tablist" aria-multiselectable="true">
+    <div style="padding: 22px"  widget class="card border-0 box-shadow">
+     <p class="urMsg">متن تیکت شما</p> <p class="msg">{{description}}</p> 
+     <div class="attachment" *ngIf="attachmentAddress">
+            <button   class="btn btn-gray w-100p mb-1 mr-1" type="button">
+                <a style="color: floralwhite" href="/{{attachmentAddress}}" download="{{attachmentAddress}}"> دانلود</a>
+            
+            </button>
+    </div>
+    </div>
+
+    <div widget class="card border-0 box-shadow">
+        <div class="card-header transparent border-0 text-muted">
+            <h5 class="mb-0">ارسال پاسخ</h5>       
+        </div>
+        <div class="card-body widget-body">
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+                <div class="form-group">
+                    <textarea style="text-align: right" [formControl]="replyDesc" class="form-control" placeholder="متن پیام" rows="3"></textarea>
+                </div>
+                <!-- <div style="border-top: 2px solid #e9ecef;padding: 12px 0;" class="col-lg-4 mb-4">
+
+                  
+                  <input type="file" accept="image/*" [formControl]="image" id="imginput" (change)="image($event)"  class="img-upload-btn"  />
+
+                  <button class="btn btn-info btn-block rounded-0" type="button">
+                      <span *ngIf="!photo">
+                          <i class="fa fa-upload"></i> Select Image... </span>
+                      <span *ngIf="photo">
+                          <i class="fa fa-refresh"></i> Change Image... </span>
+                  </button>
+
+                  <div class="image-wrapper">
+                      <i *ngIf="photo" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                      <img [attr.src]="photo" *ngIf="photo" width="100%">
+
+                  </div>
+
+
+                  <div class="err">{{fileExtensionMessage}}</div>
+              </div> -->
+                <button type="submit" class="btn btn-primary">ارسال</button>
+            </form>
+
+        </div>
+    </div>
+    <div widget class="urRp card border-0 box-shadow">
+     <p *ngIf="replys.length">پاسخ های این تیکت</p> 
+     <p *ngIf="!replys.length">هنوز پاسخی وجود ندارد </p>
+    </div>
+  <div class="card" *ngFor="let rep of replys">
+    <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          {{rep.replyDate}}
+        </a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse " data-parent="#accordion-1" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-body">
+       <div class="req">
+        <p class="name">{{rep.userEmail}} : </p> <p>{{rep.description}}</p>
+
+       </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  <!-- <div id="accordion-2" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+        <h5 class="mb-0">
+          <a data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            8/4/2918 [12:10 AM]
+          </a>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse " data-parent="#accordion-2" role="tabpanel" aria-labelledby="headingOne">
+        <div class="card-body">
+         <div class="req">
+          <p class="name">Me: </p> <p>Hello dear Admin How Arew you</p>
+         </div>
+         <div class="answer">
+          <p class="name">Admin#1: </p> <p>Not bad! </p>
+         </div>
+         <div widget class="card border-0 box-shadow">
+            <div class="card-header transparent border-0 text-muted">
+                <h5 class="mb-0">Answer</h5>       
+            </div>
+            <div class="card-body widget-body">
+  
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Message" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+  
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div> -->

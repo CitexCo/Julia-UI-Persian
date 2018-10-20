@@ -1,0 +1,27 @@
+<flash-messages></flash-messages>  
+<div class="d-flex justify-content-center align-items-center w-100 h-100 login-container">
+    <div class="col-xl-4 col-md-6 col-10">
+        <div class="card border-0 box-shadow rounded-0">
+            <div class="card-header d-flex justify-content-center align-items-center border-0 box-shadow">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </div>
+            <div class="card-body text-center pb-1">
+                <h2 style="color:aliceblue;">Reset Password</h2>
+
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+                    <div class="form-group">
+                        <input [formControl]="password" class="form-control validation-field" placeholder="New Password" type="password">
+                        <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required</small>                              
+                        <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</small>
+                    </div>
+                    <div class="form-group">
+                        <button [disabled]="!form.valid" class="btn btn-block" type="submit">Reset Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+       

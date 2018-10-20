@@ -1,0 +1,46 @@
+.success{
+    display: block;
+    width: 100%;
+    font-size: 19px;
+    color: green;
+}
+
+.img-upload-btn {
+    position: absolute;
+    padding: 0;
+    width: calc(100% - 30px);
+    height: 38px;
+    opacity: 0;
+    left: 12px;
+}
+table {
+    width: 100%;
+  }
+
+  .mat-header-cell {
+    font-size: 20px;
+
+}
+th.mat-header-cell {
+    text-align: right!important;
+    padding: 12px!important;
+}
+td.mat-cell {
+
+    padding: 12px!important;
+}
+
+.btn-info{
+    font-size: 18px;
+}
+.fileName{
+    text-align: left;
+    font-size: 19px;
+    color: coral;
+}
+.err{
+    text-align: center;
+    color: red;
+    font-size: 20px;
+    font-family: initial;
+}

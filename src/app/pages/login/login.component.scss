@@ -1,0 +1,36 @@
+.login-container{
+    position: absolute;
+    .card{
+        .card-header{
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            margin-top: -40px;
+            border-radius: 50%;
+            font-size: 36px;
+        }
+    }
+}
+.paramMsg{
+    background: #00e7f2;
+    height: 5%;
+    margin-top: 1%;
+    line-height: 50px;
+    padding-left: 5%;
+    font-size: 24px;
+    color: #000000;
+}
+
+.card{
+    a {
+        color: #ffffff;
+    }
+}
+
+.alert-right {
+    float: right;
+}
+
+.alert-container {
+    height: 10px;
+}

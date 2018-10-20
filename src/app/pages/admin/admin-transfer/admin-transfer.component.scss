@@ -1,0 +1,71 @@
+.full-width {
+    width: 100%;
+}
+
+h2 {
+    font-family: 'iransans';
+}
+
+label.mat-form-field-label {
+    font-family: 'iransans'
+}
+
+.container {
+
+    table {
+        width: 100%;
+    }
+
+    th.mat-header-cell {
+        text-align: right !important;
+        padding-right: 24px !important;
+        padding-left: 0px !important;
+        font-family: 'iransans';
+        font-size: 16px;
+    }
+
+    td.mat-cell {
+        padding-right: 24px !important;
+        padding-left: 0px !important;
+    }
+
+
+    button.mat-button {
+        font-family: 'iransans';
+        font-size: 16px;
+        outline: none;
+    }
+
+    .filter {
+        .mat-form-field {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        /deep/ .matInput::placeholder {
+            font-family: 'iransans' !important; 
+        }
+        
+        .pending-chkbox-container {
+            font-family: 'iransans';
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: auto;
+            margin-left: 5%;
+            text-align: center;
+
+            .mat-checkbox {
+                font-family: 'iransans'; 
+            }
+        }
+    
+    }
+    
+}
+
+.mat-simple-snackbar {
+    display: flex;
+    direction: rtl;
+    font-family: 'iransans';
+    font-size: 18px;
+}

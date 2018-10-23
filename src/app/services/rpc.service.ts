@@ -14,6 +14,7 @@ export class RpcService {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
   }
+
   getPrice(type){
     this.loadToken();
     let headers = new HttpHeaders({       'Authorization' : this.authToken     });
@@ -26,6 +27,7 @@ export class RpcService {
     return this.http.get(`${this.serverUrl}/rpc/get-last-price`)
 
   }
+  //set token price by admin
   setPrice(price){
     this.loadToken();
     let headers = new HttpHeaders({       'Authorization' : this.authToken     });

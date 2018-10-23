@@ -73,14 +73,14 @@ export class RegisterComponent {
         document.getElementById('preloader').classList.add('hide');
     }
 }
-
+//validate email address
 export function emailValidator(control: FormControl): {[key: string]: any} {
     var emailRegexp = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;    
     if (control.value && !emailRegexp.test(control.value)) {
         return {invalidEmail: true};
     }
 }
-
+//matching two passwords
 export function matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
         let password= group.controls[passwordKey];

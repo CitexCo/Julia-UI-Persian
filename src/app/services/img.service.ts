@@ -4,9 +4,10 @@ import { environment } from "./../../environments/environment";
   providedIn: 'root'
 })
 export class ImgService {
+  //getting server URL
   serverUrl:string = environment.serverUrl
   constructor() { }
-
+  //add image name after server URL
   getImg(imageAddress){
     return `${this.serverUrl}/${imageAddress}`;
   }

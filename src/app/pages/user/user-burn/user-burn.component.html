@@ -171,8 +171,8 @@
           </div>
           <form [formGroup]="tranferForm">
             <div class="form-group">
-              <label for="token-amount-transfer">مقدار توکن جهت انتقال</label>
-              <input formControlName='amount' type="number" value="0" class="form-control" id="token-amount-transfer">
+              <label for="token-amount">مقدار توکن جهت انتقال</label>
+              <input formControlName='amount' type="number" value="0" class="form-control" id="token-amount">
               <small class="text-danger alert-right" style="display: block; font-size: 15px">
                 <span *ngIf="tranferForm.get('amount').hasError('required')">
                   لطفا مقدار را وارد کنید

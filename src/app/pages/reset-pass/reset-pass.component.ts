@@ -29,7 +29,7 @@ export class ResetPassComponent implements OnInit {
   }
   submitForm(values:Object){
     if (this.form.valid) {
-      
+      //if form is valid form values will send to auth Service
       this.authService.resetPasswor(values).subscribe(data => {
         let msg = data['msg'];
         let success = data['success'];

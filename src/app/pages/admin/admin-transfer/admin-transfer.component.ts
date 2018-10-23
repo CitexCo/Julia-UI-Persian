@@ -213,29 +213,6 @@ export class AdminTransferComponent implements OnInit {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const INIT_DATA: TokenTransfer[] = [
     {receiptNumber: 1, userEmail: "user@user.com",      to: "0xc3c49e620b250e1421f9054eac5b230f9730b048", from: "0xb3eece8b0d3a389fd182e46ef55b3a6e270cfb17", amount: '2'},
     {receiptNumber: 2, userEmail: "babi@user.com",      to: "0xc3c49e620b250e1421f9054eac5b230f9730b048", from: "0xb3eece8b0d3a389fd182e46ef55b3a6e270cfb17", amount: '2'},

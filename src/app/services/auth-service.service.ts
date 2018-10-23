@@ -15,37 +15,34 @@ export class AuthService {
   roles: any;
   authToken: any;
   user: any;
-  serverUrl:string = environment.serverUrl
+  serverUrl: string = environment.serverUrl
   constructor(private http: HttpClient) {
     // this.isDev = true;
   }
   registerUser(user) {
-    //console.log(user);
-
-    let headers = new   HttpHeaders();
+    let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(`${this.serverUrl}/users/register`, user, { headers: headers })
-      // .map(res => res.json());
+
   }
 
+  //Authenticate
   authenticateUser(user) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(`${this.serverUrl}/accounts/authenticate`, user, { headers: headers })
-      // .map(res => res.json());
   }
+// Forgot Password
   forgetPass(email) {
-    let headers = new   HttpHeaders();
+    let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(`${this.serverUrl}/accounts/forgotpassword`, email, { headers: headers })
-      // .map(res => res.json());
   }
-  updatekyc(form) {
-    //console.log(form);
-    
 
+  //send KYC request from User to Admin
+  updatekyc(form) {
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
     this.loadToken();
     headers.append('Authorization', this.authToken);
@@ -61,44 +58,46 @@ export class AuthService {
     body.append('passportImage', form.passportImage);
     body.append('image', form.image);
     //console.log(body);
-    
-    return this.http.post(`${this.serverUrl}/users/updatekyc`, body, { headers: headers })
-      // .map(res => res.json());
-  }
 
+    return this.http.post(`${this.serverUrl}/users/updatekyc`, body, { headers: headers })
+
+  }
+// user profile information
   getProfile() {
     this.loadToken();
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
 
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     return this.http.get(`${this.serverUrl}/users/profile`, { headers: headers })
-      // .map(res => res.json());
+    // .map(res => res.json());
   }
+  // Get Referals
   getReferal() {
     this.loadToken();
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
 
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
     return this.http.get(`${this.serverUrl}/users/getreferal`, { headers: headers })
-      // .map(res => res.json());
+
   }
-  gtKycCode(){
+  //get KYC code
+  gtKycCode() {
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
     this.loadToken();
     headers.append('Authorization', this.authToken);
-    
+
     headers.append('Content-Type', 'application/json');
     return this.http.get(`${this.serverUrl}/users/kyc-code`, { headers: headers })
   }
-
+  //store user data to localStorage
   storeUserData(token, user) {
 
     localStorage.setItem('id_token', token);
@@ -119,29 +118,29 @@ export class AuthService {
   }
 
 
-
-  resetPasswor(form){
+  //reset password
+  resetPasswor(form) {
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
     headers.append('Content-Type', 'application/json');
     return this.http.post(`${this.serverUrl}/users/changepassword`, form, { headers: headers })
-      // .map(res => res.json());
+    // .map(res => res.json());
   }
-  ForgetResetPass(form){
+  ForgetResetPass(form) {
     //console.log(form);
-    
+
     let headers = new HttpHeaders({
     });
     headers.append('Content-Type', 'application/json');
     return this.http.post(`${this.serverUrl}/accounts/resetpassword`, form, { headers: headers })
-      // .map(res => res.json());
+    // .map(res => res.json());
   }
 
   loggedIn() {
     // return tokenNotExpired('id_token');
     const token = localStorage.getItem('id_token');
-    
+
     return helper.isTokenExpired(token);
   }
 
@@ -151,44 +150,44 @@ export class AuthService {
     localStorage.clear();
   }
 
-  signContract(type){
+  signContract(type) {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
-    return this.http.post(`${this.serverUrl}/users/sign-contract`,type, { headers: headers })
+    return this.http.post(`${this.serverUrl}/users/sign-contract`, type, { headers: headers })
     // .map(result => result);
   }
-  
-  createReceipt(form){
-    this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
 
-    return this.http.post(`${this.serverUrl}/users/create-receipt`,form, { headers: headers })
+  createReceipt(form) {
+    this.loadToken();
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
+
+    return this.http.post(`${this.serverUrl}/users/create-receipt`, form, { headers: headers })
   }
 
-  listReceipt(){
-        
+  listReceipt() {
+
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/list-receipt`, { headers: headers })
   }
-  listPendingReceipt(){
+  listPendingReceipt() {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/list-pending-receipt`, { headers: headers })
   }
-  getBalance(){
+  getBalance() {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/balance`, { headers: headers })
   }
-  uploadReceipt(form){
+  uploadReceipt(form) {
     this.loadToken();
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
     headers.append('Authorization', this.authToken);
     let body = new FormData();
@@ -196,85 +195,85 @@ export class AuthService {
     body.append('receiptNumber', form.receiptNumber);
 
     return this.http.post(`${this.serverUrl}/users/complete-receipt`, body, { headers: headers })
-    
-  }
-  burn(form){
-    this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
 
-    return this.http.post(`${this.serverUrl}/users/burn`,form, { headers: headers })
-    
   }
-  transfer(form){
+  burn(form) {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
-    return this.http.post(`${this.serverUrl}/users/transfer`,form, { headers: headers })
-    
+    return this.http.post(`${this.serverUrl}/users/burn`, form, { headers: headers })
+
   }
-  listAllTransfer(){
+  transfer(form) {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
+
+    return this.http.post(`${this.serverUrl}/users/transfer`, form, { headers: headers })
+
+  }
+  listAllTransfer() {
+    this.loadToken();
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/list-transfer`, { headers: headers })
   }
-  listPendingTransfer(){
+  listPendingTransfer() {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/list-pending-transfer`, { headers: headers })
   }
-  listPendingBurn(){
+  listPendingBurn() {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/list-pending-burn`, { headers: headers })
   }
-  listAllBurn(){
+  listAllBurn() {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
     return this.http.get(`${this.serverUrl}/users/list-burn`, { headers: headers })
   }
-  verifyBurn(form){
+  verifyBurn(form) {
     // //console.log(form);
-    
-    this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
 
-    return this.http.post(`${this.serverUrl}/users/burn-verify`,form, { headers: headers })
-    
-  }
-  resendConfirmCode(form){
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
-    return this.http.post(`${this.serverUrl}/users/burn-resend-token`,form, { headers: headers })
+    return this.http.post(`${this.serverUrl}/users/burn-verify`, form, { headers: headers })
+
   }
-  rejectBurn(form){
+  resendConfirmCode(form) {
     this.loadToken();
-    let headers = new HttpHeaders({       'Authorization' : this.authToken     });
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
 
-    return this.http.post(`${this.serverUrl}/users/burn-cancel`,form, { headers: headers })
-    
+    return this.http.post(`${this.serverUrl}/users/burn-resend-token`, form, { headers: headers })
   }
-  exchangerList(){
+  rejectBurn(form) {
+    this.loadToken();
+    let headers = new HttpHeaders({ 'Authorization': this.authToken });
+
+    return this.http.post(`${this.serverUrl}/users/burn-cancel`, form, { headers: headers })
+
+  }
+  exchangerList() {
     this.loadToken();
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
 
 
     return this.http.get(`${this.serverUrl}/users/exchangers`, { headers: headers })
   }
-  getExchanger(email){
+  getExchanger(email) {
     this.loadToken();
     let headers = new HttpHeaders({
-      'Authorization' : this.authToken
+      'Authorization': this.authToken
     });
 
 
-    return this.http.post(`${this.serverUrl}/users/exchanger`,email, { headers: headers })
+    return this.http.post(`${this.serverUrl}/users/exchanger`, email, { headers: headers })
   }
 
 

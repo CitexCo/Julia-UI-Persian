@@ -14,8 +14,7 @@ export class DiskSpaceComponent {
   public router: Router;
   KYCVerified:boolean=false;
   public data: any[];
-  userType;
-  isAdmin;
+ 
   public showLegend = false;
   public gradient = true;
   public colorScheme = {
@@ -31,14 +30,10 @@ export class DiskSpaceComponent {
   public settings: Settings;
   constructor(router:Router,public appSettings:AppSettings,public authService:AuthService) {
     this.router = router;
-		let user =JSON.parse(localStorage.getItem('user')) ;
-		this.userType = user.accountType
 
-		if (this.userType == 'Admin') {
-			this.isAdmin = true;
-		}
     this.settings = this.appSettings.settings;
     this.initPreviousSettings(); 
+    this.authService.getProfile()
     this.authService.getProfile().subscribe(data=>{
 
       let user = data['user'];

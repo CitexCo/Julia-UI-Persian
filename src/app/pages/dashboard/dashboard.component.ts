@@ -21,33 +21,24 @@ export class DashboardComponent implements OnInit {
 	balance;
 	userType;
 	lastPrice;
-	isAdmin;
 	constructor(private rpcService:RpcService , public authService: AuthService){
-		let user =JSON.parse(localStorage.getItem('user')) ;
-		this.userType = user.accountType
-
-		if (this.userType == 'Admin') {
-			this.isAdmin = true;
-		}
-		if (!this.isAdmin) {
-						//getting profile of logged in user and set it to global varibles
+		//getting profile of logged in user and set it to global varibles
 		this.authService.getProfile().subscribe(data=>{
 			//console.log(data);
 			let user = data['user'];
-
 			this.KYCUpdated = user.KYCUpdated;
 			this.KYCVerified = user.KYCVerified;
 			this.userEmail = user.email;
 			this.balance = user.balance;
 		});
-		}
 
-
+		let user =JSON.parse(localStorage.getItem('user')) ;
+		this.userType = user.accountType
 
 		this.rpcService.getLastPrice().subscribe(data=>{
 			let price = data['price'];
 			this.lastPrice = price.price;
-			 //console.log(data);
+			// console.log(data);
 			
 		})
 		

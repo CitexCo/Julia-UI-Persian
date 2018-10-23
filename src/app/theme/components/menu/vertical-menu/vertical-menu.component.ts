@@ -25,7 +25,7 @@ export class VerticalMenuComponent implements OnInit {
               window.scrollTo(0, 0);
               let activeLink = this.menuService.getActiveLink(this.menuItems);
               this.menuService.setActiveLink(this.menuItems, activeLink); 
-              // jQuery('.tooltip').tooltip('hide');
+              jQuery('.tooltip').tooltip('hide');
               if(window.innerWidth <= 768){
                 this.settings.theme.showMenu = false; 
               }             

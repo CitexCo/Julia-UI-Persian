@@ -3,16 +3,16 @@
         <div class="card-header"> خوش آمدید </div>
         <div class="card-body">
             <p>قیمت هر توکن : {{lastPrice}}</p>
-            <p *ngIf='!isAdmin'>موجودی شما : {{balance}}</p>
+            <p>موجودی شما : {{balance}}</p>
 
-            <div *ngIf='!isAdmin' class="kycStatus">
+            <div class="kycStatus">
                 
                 <p class="text-success" *ngIf='KYCVerified'>تایید شده</p>
                 <p class="text-warning" *ngIf='KYCUpdated'>در انتظار تایید</p>
                 <p class="text-danger" *ngIf='!KYCVerified'>ثبت نشده</p>
                : وضعیت احراز هویت
             </div>
-            <p *ngIf='!isAdmin'> {{userEmail}} : ایمیل شما</p>
+            <p> {{userEmail}} : ایمیل شما</p>
 
         </div>
         <div class="card-footer">

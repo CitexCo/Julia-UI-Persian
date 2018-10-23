@@ -7,17 +7,17 @@
         <div class="text-center mb-2 fs-13">
  
         </div>
-        <div  class="info">
+        <div class="info">
              <p>2018/8/9</p><p>تاریخ ثبت نام</p>
         </div>
         <div class="kyc">
-                <button *ngIf="!KYCVerified && !isAdmin" type="button" style="    width: 21%;
+                <button *ngIf="!KYCVerified" type="button" style="    width: 21%;
                 margin: 2%;" class="btn btn-success" (click)="kyc()">
                 احراز هویت
                       </button>
-             <p  *ngIf="!KYCVerified && !isAdmin" class="authTxt text-danger">ثبت نشده</p>
-              <p   *ngIf="KYCVerified || isAdmin" class="authTxt text-success">ثبت شده</p>
-              <p  class="auth">: وضعیت احراز هویت</p>
+             <p   *ngIf="!KYCVerified" class="authTxt text-danger">ثبت نشده</p>
+              <p   *ngIf="KYCVerified" class="authTxt text-success">ثبت شده</p>
+              <p class="auth">: وضعیت احراز هویت</p>
 
         </div>
         <div class="w-500 h-1500p">

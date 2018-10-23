@@ -51,12 +51,6 @@ export class TicketListComponent implements OnInit {
       }
     });
     //console.log(this.description);
-    // this.replys.forEach(rep=>{
-    //   if (rep.userEmail = this.userEmail) {
-    //     this.sameMail=true;
-        
-    //   }
-    // })
   })
    
   }

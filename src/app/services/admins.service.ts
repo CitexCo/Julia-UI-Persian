@@ -32,6 +32,7 @@ export class AdminsService {
 
     return this.http.get(`${this.serverUrl}/admins/list-pending-receipt`, { headers: headers })
   }
+  // list all Receipt approved by admin
   ListApproved() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -43,6 +44,7 @@ export class AdminsService {
 
     return this.http.get(`${this.serverUrl}/admins/list-approved-receipt`, { headers: headers })
   }
+  // list all Receipt rejected by admin
   ListRejected() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -54,6 +56,7 @@ export class AdminsService {
 
     return this.http.get(`${this.serverUrl}/admins/list-rejected-receipt`, { headers: headers })
   }
+  // approve receipt by admin
   approveReceipt(form) {
 
     let headers = new HttpHeaders({
@@ -66,6 +69,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/approve-receipt`, form, { headers: headers })
   }
+  // reject receipt by admin
   rejectReceipt(form) {
 
 
@@ -79,6 +83,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/reject-receipt`, form, { headers: headers })
   }
+  // list all BurnRequest submited by user and ready for admin response
   lisPendingBurn() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -90,6 +95,7 @@ export class AdminsService {
 
     return this.http.get(`${this.serverUrl}/admins/list-pending-burn`, { headers: headers })
   }
+  // list all BurnRequest approved by admin
   listApprovedBurn() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -101,6 +107,7 @@ export class AdminsService {
 
     return this.http.get(`${this.serverUrl}/admins/list-approved-burn`, { headers: headers })
   }
+  // list all BurnRequest rejected by admin
   listRejectedBurn() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -112,9 +119,8 @@ export class AdminsService {
 
     return this.http.get(`${this.serverUrl}/admins/list-rejected-burn`, { headers: headers })
   }
+  // reject burn by admin
   rejectBurn(form) {
-    //console.log(form);
-
     let headers = new HttpHeaders({
       'Authorization': this.authToken
     });
@@ -125,8 +131,8 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/reject-burn`, form, { headers: headers })
   }
+  // approve burn by admin
   approveBurn(form) {
-    //console.log(form);
     this.loadToken();
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -138,6 +144,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/approve-burn`, form, { headers: headers })
   }
+  // Enable User
   activeUser(email) {
 
     this.loadToken();
@@ -145,6 +152,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/enable`, email, { headers: headers })
   }
+  // Disable User
   deactiveUser(email) {
 
 
@@ -153,6 +161,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/disable`, email, { headers: headers })
   }
+  // Verify KYC
   verifykyc(form) {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -163,6 +172,8 @@ export class AdminsService {
     return this.http.post(`${this.serverUrl}/admins/verifykyc`, form, { headers: headers })
     // .map(res => res.json());
   }
+  // user, verifyKYC, changeRoles, answerTicket, userManager, RPCManager
+// Change Roles
   changeRole(form) {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -173,6 +184,7 @@ export class AdminsService {
     return this.http.post(`${this.serverUrl}/admins/changeroles`, form, { headers: headers })
     // .map(res => res.json());
   }
+  // list All users
   getUserList() {
 
     this.loadToken();
@@ -185,6 +197,7 @@ export class AdminsService {
     return this.http.get(`${this.serverUrl}/admins/users`, { headers: headers })
       .map(result => result);
   }
+  // Get Users List for KYC
   getUserListKyc() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -195,11 +208,9 @@ export class AdminsService {
     return this.http.get(`${this.serverUrl}/admins/listkyc`, { headers: headers })
     // .map(res => res.json());
   }
+
   // Register Admin
   registerAdmin(form) {
-    //console.log(form);
-
-
     let headers = new HttpHeaders({
       'Authorization': this.authToken
     });
@@ -214,6 +225,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/register-admin`, body, { headers: headers })
   }
+    // Register Exchanger
   registerExchanger(form) {
 
     let headers = new HttpHeaders({
@@ -231,6 +243,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/register-exchanger`, body, { headers: headers })
   }
+  // list All exchangers
   exchangerList() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -240,6 +253,7 @@ export class AdminsService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(`${this.serverUrl}/admins/exchangers`, { headers: headers })
   }
+  // list admin's own roles
   Allroles() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -250,6 +264,7 @@ export class AdminsService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(`${this.serverUrl}/admins/all-roles`, { headers: headers })
   }
+  // list admin's own roles
   roles() {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -260,7 +275,7 @@ export class AdminsService {
     headers.append('Content-Type', 'application/json');
     return this.http.get(`${this.serverUrl}/admins/roles`, { headers: headers })
   }
-
+// list all TransferRequest approved by admin
   getTransferList() {
     this.loadToken();
     let headers = new HttpHeaders({ 'Authorization': this.authToken });
@@ -270,6 +285,7 @@ export class AdminsService {
       return resp['transferRequests']
     })
   }
+  // list all TransferRequest submited by user and ready for admin response
   alltransferList(){
     this.loadToken();
     let headers = new HttpHeaders({ 'Authorization': this.authToken });
@@ -279,6 +295,7 @@ export class AdminsService {
       return resp['transferRequests']
     })
   }
+  // Get KYC informations of a user
   getKyc(email) {
     let headers = new HttpHeaders({
       'Authorization': this.authToken
@@ -288,6 +305,7 @@ export class AdminsService {
     return this.http.post(`${this.serverUrl}/admins/get-kyc`, email, { headers: headers })
     // .map(res => res.json());
   }
+  // approve transfer by admin
   approveTransfer(form){
     this.loadToken();
     let headers = new HttpHeaders({
@@ -300,6 +318,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/approve-transfer`, form, { headers: headers })
   }
+  // reject transfer by admin
   rejectTransfer(form){
     this.loadToken();
     let headers = new HttpHeaders({
@@ -312,6 +331,7 @@ export class AdminsService {
 
     return this.http.post(`${this.serverUrl}/admins/reject-transfer`, form, { headers: headers })
   }
+  //get list of all admins
   listAdmins() {
     this.loadToken();
     let headers = new HttpHeaders({ 'Authorization': this.authToken });

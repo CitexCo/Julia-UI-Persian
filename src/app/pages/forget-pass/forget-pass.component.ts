@@ -30,6 +30,7 @@ export class ForgetPassComponent implements OnInit {
 
   }
 
+  //after Submit the form form values will send to authService
   public onSubmit(values:Object):void {
       if (this.form.valid) {
         this.authService.forgetPass(values).subscribe(data => {

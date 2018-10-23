@@ -259,7 +259,6 @@
             reader.onload = () => {
             this.photo = reader.result;
             };
-            
         }
         }
     }

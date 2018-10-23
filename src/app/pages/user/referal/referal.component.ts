@@ -21,7 +21,7 @@ export class ReferalComponent implements OnInit {
     this.authService.getReferal().subscribe(data => {
 
       let referals = data['referals']
-     // console.log(referals);
+      console.log(referals);
       
       if(referals.length){
         this.hasReferal =true;
@@ -38,17 +38,17 @@ export class ReferalComponent implements OnInit {
       });
       
     });
+    //making referal link
     this.authService.getProfile().subscribe(data=>{
       let user = data['user'];
-    //  console.log(user.referalCode);
+      console.log(user.referalCode);
       this.UserId = user.referalCode
       this.UserLink ="http://digiasset.co/panel/#/register?referalCode="+ this.UserId;
     })
   }
 
   ngOnInit() {
-    // const user = localStorage.getItem('user');
-    // this.UerId =JSON.parse(user)._id;
+
 
   }
 

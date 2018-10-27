@@ -15,6 +15,7 @@ export class ExchangerService {
     constructor(private http: HttpClient) { 
     }
 
+    //creat new receipt for user
     createUserReceipt(r): UserReceipt {
         
         let receipt: UserReceipt =
@@ -38,12 +39,12 @@ export class ExchangerService {
 
         return receipt
     }
-
+    //load JWT token for Authorization
     loadToken() {
         const token = localStorage.getItem('id_token');
         this.authToken = token;
     }
-
+    //getting kyc information for user
     getKyc(userNumber){
         
         this.loadToken();
@@ -54,7 +55,7 @@ export class ExchangerService {
     
         return this.http.post(`${this.serverUrl}/exchangers/get-kyc`, { "userNumber": userNumber}, { headers: headers })
     }
-
+    //get user email from component and send to server and getting user info
     getUser(userEmail) {
 
         this.loadToken();
@@ -70,7 +71,8 @@ export class ExchangerService {
             return user
         })
     }
-
+    //geting receipt information from component
+    //because it should send images so we send request as form Data
     receipt(form) {
 
         this.loadToken();
@@ -88,7 +90,7 @@ export class ExchangerService {
         return this.http.post(`${this.serverUrl}/exchangers/receipt`, body, { headers: headers })
         
     }
-
+    //send verification Code to server to find specific receipt and return
     getReceiptByCode(verificationCode) {
         this.loadToken();
         let headers = new HttpHeaders({ 'Authorization' : this.authToken });
@@ -109,7 +111,7 @@ export class ExchangerService {
             return receipt
         })
     }
-
+    //getting list of all receipts
     getList() {
 
         this.loadToken();
@@ -128,7 +130,7 @@ export class ExchangerService {
             return rcpt
         })
     }
-
+    //getting list of all pending receipts
     getPendingList() {
 
         this.loadToken();
@@ -147,7 +149,7 @@ export class ExchangerService {
         })
         
     }
-
+    //compelet confirm receipt procces 
     confirmReceipt(receipt) {
         this.loadToken();
         let headers = new HttpHeaders({ 'Authorization' : this.authToken });

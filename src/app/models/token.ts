@@ -1,3 +1,4 @@
+// iterface model of Token information
 export interface Token {
     address: string;
     name: string;

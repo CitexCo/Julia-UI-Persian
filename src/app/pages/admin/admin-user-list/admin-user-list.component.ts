@@ -88,6 +88,7 @@ export class AdminUserListComponent implements OnInit {
 
     });
   }
+  //send new role values to changeRole function in adminsService to set new roles for selected admin
   public onSubmit(values:Object):void {
     values["email"] =this.selected[0].email;
     //console.log(values);
@@ -106,6 +107,7 @@ export class AdminUserListComponent implements OnInit {
     
   }
   
+  //after each character that user types this function will filter the list of admins
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
 
@@ -126,6 +128,7 @@ export class AdminUserListComponent implements OnInit {
     this.rows[row.$$index][cell] = event.target.value;
   }
 
+  //after select checkbox of each user this function will run
   onSelect({ selected }) {
     //console.log(selected.length);
     this.isUser=false;
@@ -159,7 +162,7 @@ export class AdminUserListComponent implements OnInit {
     this.selected.push(...selected);
 
   }
-
+  // check roles of admin with this 4 function
   IsChangeRole(roleTitle) {
         
     if (roleTitle == 'changeRoles') {
@@ -171,10 +174,7 @@ export class AdminUserListComponent implements OnInit {
   }
   IsUser(roleTitle) {
     let roles = roleTitle
-    // roles.forEach(role => {
-    //   //console.log(role);
-      
-    // });
+
     
     if (roleTitle == 'user') {
      return this.isUser = true;

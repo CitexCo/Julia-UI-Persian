@@ -1,3 +1,4 @@
+<!-- if user didnt sent and verified KYC show this section and hide all of the page -->
 <div *ngIf='notVerified'>
     <div widget class="card border-0 box-shadow" style="text-align: left; font-size: 18px;   padding: 6%;margin-bottom: 22px;">
         <div style="    margin-bottom: 20px;" class="card card-outline-danger">
@@ -9,11 +10,11 @@
 
     </div>
 </div>
-
+<!-- if user KYC has been verified then show the page -->
 <div *ngIf='!notVerified'>
 
 <div widget class="card border-0 box-shadow mb-4 box">
-
+<!-- list of all Burn requests -->
     <div class="row">
         <div class="col-md-12">
           <div class="pendingTable">
@@ -75,7 +76,7 @@
 </div>
 
 <div widget class="card border-0 box-shadow box">
-
+<!-- list of all transfer requests -->
   <div class="row">
       <div class="col-md-12">
         <div class="pendingTable">

@@ -11,11 +11,13 @@
             <div class="card-body text-center pb-1">
                 <h2 style="color:aliceblue;">ورود اعضا</h2>
                 <!-- <a routerLink="/register" class="transition">حساب کاربری خود را از اینجا ایجاد کنید</a> -->
-
+                <!-- the login form -->
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
                     <div class="form-group">
+                        <!-- eamil input field -->
                         <input [formControl]="email" class="form-control validation-field" placeholder="ایمیل خود را وارد نمایید" type="text">
                         <div class="alert-container">
+                            <!-- email input validation error handeling -->
                             <small class="text-danger alert-right" *ngIf="form.get('email').touched && form.get('email').hasError('required')">
                                 ایمیل وارد نشده است
                             </small>
@@ -25,8 +27,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <!-- password input field -->
                         <input [formControl]="password" class="form-control validation-field" placeholder="رمز عبور خود را وارد نمایید" type="password">
                         <div class="alert-container">
+                            <!-- password input validation error handeling -->
                             <small class="text-danger alert-right" *ngIf="form.get('password').touched && form.get('password').hasError('required')">
                                 رمز عبور وارد نشده است
                             </small>
@@ -52,32 +56,11 @@
                         </p>
                     </div>
                     <div class="form-group">
+                        <!-- the login button will be disabled untill the correct values entered -->
                         <button [disabled]="!form.valid" class="btn btn-block" type="submit" style="font-size: 16px">ورود</button>
                     </div>
                 </form>
             </div>
-            <!-- <div class="card-footer text-center bg-transparent">
-                <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-square-o fa-stack-2x"></i>
-                            <i class="fa fa-facebook fa-stack-1x"></i>
-                        </span>
-                    </li>
-                    <li class="list-inline-item">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-square-o fa-stack-2x"></i>
-                            <i class="fa fa-twitter fa-stack-1x"></i>
-                        </span>
-                    </li>
-                    <li class="list-inline-item">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-square-o fa-stack-2x"></i>
-                            <i class="fa fa-google fa-stack-1x"></i>
-                        </span>
-                    </li>
-                </ul>
-            </div> -->
         </div>
     </div>
 </div>

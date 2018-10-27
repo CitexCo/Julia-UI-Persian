@@ -59,6 +59,7 @@ paramMsg;
 
   public onSubmit(values:Object):void {
       if (this.form.valid) {
+        // if login form is valid then send it to authenticateUser function in authService
         this.authService.authenticateUser(values).subscribe(data => {
           //console.log(data);
           
@@ -67,8 +68,10 @@ paramMsg;
           let token = data ['token'];
           let user = data['account']
             if(success) {
+              // if login was successfully then send user data to storeUserData function in authService
               this.authService.storeUserData(token, user);
               this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 5000});
+              // navigate user to pages compenent
               this.router.navigate(['pages/']);
             } else {
               this.flashMessage.show(msg, {cssClass: 'alert-danger', timeout: 5000});

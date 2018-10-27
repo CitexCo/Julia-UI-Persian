@@ -11,7 +11,9 @@
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
                     <div class="form-group">
+                        <!-- new password input field -->
                         <input [formControl]="password" class="form-control validation-field" placeholder="New Password" type="password">
+                        <!-- error handeling for password validation  -->
                         <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required</small>                              
                         <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</small>
                     </div>

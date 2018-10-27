@@ -34,13 +34,8 @@
                             <i class="fa {{ step.icon }}"></i> {{step.name}}</h4>
                     </div> -->
 
-
+                    <!-- welcome message for first page of KYC user -->
                     <form *ngIf="step.name=='Start ID Verification'" [formGroup]="accountForm" class="row bg-light pt-2">
-                        <!-- <div class="col-md-12 welcome">
-                            <p>please have your ID ready for verification</p>
-
-                            <p>this verification process is designed to confirm your identity and protect you from identity theft</p>
-                        </div> -->
 
                         <div class="col-lg-12 col-md-12 mb-4">
                             <div class="card card-outline-success text-center">
@@ -60,12 +55,12 @@
                         </div>
                     </form>
 
-
+                    <!-- if step name is Personal Information show this form -->
                     <form *ngIf="step.name=='Personal Information'" [formGroup]="personalForm" class="row bg-light pt-2">
                         <div class="col-md-12 form-container">
                             <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('firstname').hasError('required')">First Name is required</small> -->
                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('firstname').hasError('required'), 'has-success' : !personalForm.get('firstname').hasError('required') }">
-
+                                <!-- firstName input field -->
                                 <input style="max-width:50%;    margin-right: 6.6%;" formControlName="firstname" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('firstname').hasError('required'), 'form-control-success' :  !personalForm.get('firstname').hasError('required') }"
                                     type="text">
 
@@ -73,7 +68,7 @@
                             </div>
 
                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('lastname').hasError('required'), 'has-success' : !personalForm.get('lastname').hasError('required') }">
-
+                                <!-- lastName input field -->
                                 <input style="max-width:50%;" formControlName="lastname" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('lastname').hasError('required'), 'form-control-success' :  !personalForm.get('lastname').hasError('required') }"
                                     type="text">
                                 <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('lastname').hasError('required')">Last Name is required</small> -->
@@ -84,7 +79,7 @@
 
 
                             <div class="form-group col-md-12" [ngClass]="{'has-danger' : step.hasError && personalForm.get('phone').hasError('required'), 'has-success' : !personalForm.get('phone').hasError('required') }">
-
+                                <!-- phone number input field -->
                                 <input style="max-width:50%;    margin-right: 2.5%;" formControlName="phone" class="form-control" [ngClass]="{'form-control-danger' :  personalForm.get('phone').hasError('required'), 'form-control-success' :  !personalForm.get('phone').hasError('required') }"
                                     type="number">
 
@@ -94,12 +89,13 @@
 
 
                             <div class="form-group col-md-12" [ngClass]="{'form-control-danger' : step.hasError&& personalForm.get('birth').hasError('required'), 'form-control-success' : !personalForm.get('birth').hasError('required') }">
-
+                                <!-- angular material date picker -->
                                 <mat-form-field class="example-full-width">
                                     <input formControlName="birth" matInput [min]="minDate" [max]="maxDate" [errorStateMatcher]="matcher" [matDatepicker]="picker"
                                         placeholder="Select your Birth Date">
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
+                                    <!-- birth date error handeling -->
                                     <mat-error *ngIf="dateFormControl.hasError('date')">
                                         Birth Date is
                                         <strong>Not Valid</strong>
@@ -139,33 +135,38 @@
                             </div>
                         </div>
                     </form>
+                    <!-- if step name is wallet Information shows this form -->
                     <form *ngIf="step.name=='wallet Information'" [formGroup]="WalletForm" class="row bg-light pt-2">
                         <div class="col-md-12">
-                                <mat-radio-group formControlName="hasWallet" dir="rtl">
-                                        <div class="walletRadio">
-                                                <mat-radio-button  [value]="false" [checked]="!haveWallet" class="radiobtn" (change)="NoWallet($event)" value="2"></mat-radio-button> <label>آدرس اتریوم ندارم</label>
-                                        </div>
-                                    <div class="walletRadio">
-                                            <mat-radio-button  [value]="true" class="radiobtn" (change)="Wallet($event)" value="1"> </mat-radio-button> <label>آدرس اتریوم دارم</label>
-                                    </div>
-                                        
-                                        
-                                        <div *ngIf="haveWallet" class="form-group " id="walletDiv" [ngClass]="{'has-danger' : (step.hasError&& WalletForm.get('wallet').hasError('incorrect')) || (step.hasError&& WalletForm.get('wallet').hasError('required')), 'has-success' : !WalletForm.get('wallet').hasError('required') &&  !WalletForm.get('wallet').hasError('incorrect') }">
-                                                <label class="form-control-label">آدرس اتریوم</label>
-                                                <input  (input)='isAddress($event.target.value)' style="max-width:27%;     font-family: initial;   margin-right: 1.5%;" formControlName="wallet"
-                                                    class="form-control" [ngClass]="{'form-control-danger' :  (step.hasError&& WalletForm.get('wallet').hasError('incorrect')) || (step.hasError&& WalletForm.get('wallet').hasError('required')), 'form-control-success' :  !WalletForm.get('wallet').hasError('required') && !WalletForm.get('wallet').hasError('required') }"
-                                                    type="text">
-                                                <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('wallet').hasError('required')">required</small>
+                            <!-- angular material radio button -->
+                            <mat-radio-group formControlName="hasWallet" dir="rtl">
+                                <div class="walletRadio">
+                                    <mat-radio-button [value]="false" [checked]="!haveWallet" class="radiobtn" (change)="NoWallet($event)" value="2"></mat-radio-button>
+                                    <label>آدرس اتریوم ندارم</label>
+                                </div>
+                                <div class="walletRadio">
+                                    <mat-radio-button [value]="true" class="radiobtn" (change)="Wallet($event)" value="1"> </mat-radio-button>
+                                    <label>آدرس اتریوم دارم</label>
+                                </div>
+
+                                <!-- is user selected i have a wallet addres this input field will shows -->
+                                <div *ngIf="haveWallet" class="form-group " id="walletDiv" [ngClass]="{'has-danger' : (step.hasError&& WalletForm.get('wallet').hasError('incorrect')) || (step.hasError&& WalletForm.get('wallet').hasError('required')), 'has-success' : !WalletForm.get('wallet').hasError('required') &&  !WalletForm.get('wallet').hasError('incorrect') }">
+                                    <label class="form-control-label">آدرس اتریوم</label>
+                                    <input (input)='isAddress($event.target.value)' style="max-width:27%;     font-family: initial;   margin-right: 1.5%;" formControlName="wallet"
+                                        class="form-control" [ngClass]="{'form-control-danger' :  (step.hasError&& WalletForm.get('wallet').hasError('incorrect')) || (step.hasError&& WalletForm.get('wallet').hasError('required')), 'form-control-success' :  !WalletForm.get('wallet').hasError('required') && !WalletForm.get('wallet').hasError('required') }"
+                                        type="text">
+                                    <!-- <small class="text-danger" *ngIf="step.hasError && personalForm.get('wallet').hasError('required')">required</small>
                                             <small class="text-danger" *ngIf="step.hasError && personalForm.get('wallet').hasError('incorrect')">incorrect Wallet Address</small> -->
 
-                                            </div>
+                                </div>
 
-                                        
-                                      </mat-radio-group>
+
+                            </mat-radio-group>
                         </div>
 
 
                     </form>
+                    <!-- if step name is Address Information this form will shows -->
                     <form *ngIf="step.name=='Address Information'" id="secondForm" [formGroup]="AddressForm" class="row bg-light pt-2">
                         <div class="container-fluid">
                             <div class="row">
@@ -174,9 +175,10 @@
                                         <div class="card-body">
                                             <blockquote class="card-bodyquote">
                                                 <p>ارسال عکس شناسایی</p>
-                                                <footer> برای تایید مدارک یک عکس با الگوی زیر ارسال کنید 
+                                                <footer> برای تایید مدارک یک عکس با الگوی زیر ارسال کنید
                                                 </footer>
-                                                    <p class="kycCode">کد تایید شما : {{kycCode}}</p>
+                                                <!-- KYC code that generate from server will display here -->
+                                                <p class="kycCode">کد تایید شما : {{kycCode}}</p>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -185,18 +187,19 @@
                             <div class="row">
 
 
-                                    <div class="col-md-5 sampleImg">
-                                        <div class="card-deck">
-                                            <div class="card">
-                                                <img class="card-img-top w-100" src="assets/img/app/4.png" alt="Card image cap">
+                                <div class="col-md-5 sampleImg">
+                                    <div class="card-deck">
+                                        <div class="card">
+                                            <!-- sampel KYC image -->
+                                            <img class="card-img-top w-100" src="assets/img/app/4.png" alt="Card image cap">
 
 
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
 
 
-
+                                <!-- image uploader DIV -->
                                 <div class="col-md-7 secondImg">
                                     <div class=" img-container ">
                                         <h6>ارسال عکس</h6>
@@ -217,7 +220,7 @@
                                             <img src="assets/img/app/no-image.png" *ngIf="!SecondPhoto" width="100%">
                                         </div>
 
-
+                                        <!-- image uploader error handeling -->
                                         <div class="err" *ngIf="AddressForm.get('SecondImage').hasError('required')">ارسال عکس الزامی است</div>
                                     </div>
                                 </div>
@@ -229,7 +232,8 @@
 
 
                     </form>
-
+                    <!-- if step name is Confirm Your Details this form will shows -->
+                    <!-- here user in last step gonna see and check entered information -->
                     <div *ngIf="step.name=='Confirm Your Details'" class="row bg-light pt-2">
                         <div class="element col-md-12">
                             <div class="verifyTitle">
@@ -288,7 +292,7 @@
 
                         <div class="element col-md-12">
 
-
+                            <!-- the modal that gonna shows the personal image that user uploaded -->
 
                             <div class="modal fade" id="PersonImg" tabindex="-1" role="dialog" style="display: none;">
                                 <div class="modal-dialog" role="document">
@@ -302,18 +306,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- the modal that gonna shows the KYC image that user uploaded -->
                             <div class="modal fade" id="SecondImg" tabindex="-1" role="dialog" style="display: none;">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <img [attr.src]="SecondPhoto" *ngIf="SecondPhoto" width="100%">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <img [attr.src]="SecondPhoto" *ngIf="SecondPhoto" width="100%">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
                             <div class="verifyTxt col-md-2">
                                 <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" data-target="#PersonImg">عکس پرسنلی</button>
@@ -325,7 +330,7 @@
                     </div>
 
                 </div>
-
+                <!-- next previus and confirm buttons -->
                 <div class="row mt-3">
                     <div class="col">
                         <button *ngIf='!steps[steps.length-1].active' class="btn btn-primary pull-right" (click)="prev()">
@@ -344,7 +349,7 @@
                 </div>
 
             </div>
-
+            <!-- if informations sent to server this page gonna shows and will display message that server sent -->
             <div *ngIf="confirmed" class="card-body widget-body">
 
                 <div class="col bg-light p-5">
@@ -361,18 +366,21 @@
         </div>
     </div>
 </div>
+<!-- if KYC informations sent to admin and the request is waiting to admins check this message gonna shows -->
 <div *ngIf="KYCupdated" class="verified">
     <p style="color: goldenrod">
-    فرم احراز هویت شما ارسال شده است منتظر تایید باشید
+        فرم احراز هویت شما ارسال شده است منتظر تایید باشید
     </p>
 
 </div>
+<!-- if KYC information accepted by admin this message gonna shows -->
 <div *ngIf="KYCVerified" class="verified">
     <p>
         <i class="fa fa-check text-success" aria-hidden="true"></i>احراز هویت شما تایید شده است</p>
 
 </div>
 <div class="row">
+    <!-- if KYC information accepted by admin then in this page user can see his/her informations -->
     <div class="col-md-3"></div>
     <div *ngIf="KYCVerified" class="col-md-6 preview pt-2 ">
         <div class="element col-md-12">
@@ -460,31 +468,5 @@
                 </div>
             </div>
 
-
-
-
-            <!-- <div class="col-5" style="    margin: 29px 34px;">
-                    <button class="btn btn-gray btn-lg btn-block"  data-toggle="modal" data-target="#exampleModalCenter" type="button">Edite form</button>
-                    
-                </div> -->
-            <!-- Modal -->
-            <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Warning!!</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      If You want to change any parts of your KYC form please Send Support Ticket... 
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
         </div>
     </div>

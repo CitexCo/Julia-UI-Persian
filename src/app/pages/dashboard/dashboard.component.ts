@@ -41,7 +41,8 @@ export class DashboardComponent implements OnInit {
 			// console.log(data);
 			
 		})
-		
+
+		//get price by Euro
 		this.rpcService.getPrice({'type':'Euro'}).subscribe(data=>{
 
 			
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit {
 			
 			
 		});
+		//get price by Ether
 		this.rpcService.getPrice({'type':'Ether'}).subscribe(data=>{
 
 			
@@ -83,7 +85,7 @@ export class DashboardComponent implements OnInit {
 
 		//console.log(this.EuroData);
 		
-
+		//making Euro price chart by chartJS
     this.chartEu = new Chart('canvas',{
       type: 'line',
 	  data: {
@@ -127,7 +129,7 @@ export class DashboardComponent implements OnInit {
 		   }
 			
 	});
-	
+			//making Ether price chart by chartJS
 	this.chartEth = new Chart('canvas2',{
 		type: 'line',
 		data: {

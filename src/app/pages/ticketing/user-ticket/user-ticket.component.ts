@@ -61,7 +61,7 @@ this.ticketService.listmy()
 
   }
   ngOnInit() {
-    //getting list of all tickets
+    //getting list of all tickets 
     this.ticketService.listmy().subscribe(data=>{
 
       //console.log(data);
@@ -113,9 +113,8 @@ this.ticketService.listmy()
     this.ticketService.currentTicket(ticketnum);
     this.router.navigate(['/pages/ticketing/TicketList']);
   }
-  State() {
-    this.router.navigate(['/pages/ticketing/TicketState']);
-  }
+
+  //attachment file validator
   image(event) {
     let fileType = event.target.files[0].type;
     let fileSize = event.target.files[0].size;

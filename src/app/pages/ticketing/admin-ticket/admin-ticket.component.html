@@ -56,34 +56,5 @@
             
                     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
                   </div>
-            <!-- <table class="table table-striped">
-                    <thead>
-                        <tr>
-                              <th>مکالمات</th>
-                              <th>نوع توکن</th>
-                              <th>وضعیت</th>
-                              <th>موضوع</th>
-                              <th>تاریخ آخرین پیام</th>
-                            <th>شماره تیکت</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let ticket of ticketsArr">
-                              <td>
-                                      <button   (click)="ShowTicket(ticket.ticketNumber)" class="btn btn-info btn-rounded w-100p mb-1 mr-1" type="button">مشاهده</button>
-                                    </td>
-                                    <td>{{ticket.tokenType}}</td>
-                                    <td><span data-toggle="modal" data-target="#stateModal" (click)="changeState(ticket)" [ngClass]="{'badge-danger': ticket.status=='Closed'||ticket.status=='Canceled', 'badge-info': ticket.status=='Resolved'}" style="cursor: pointer;" class="badge badge-success mr-1">{{ticket.status}}</span></td>
-                                    <td>{{ticket.subject}}</td>
-                                    <td>{{ticket.lastReplyDate}}</td>
-                            <th scope="row">{{ticket.ticketNumber}}</th>
-          
-          
-          
-          
-          
-                        </tr>
-                    </tbody>
-                </table> -->
         </div>
   </div>

@@ -8,7 +8,9 @@
                 <h2>فراموشی رمز عبور</h2>
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
                     <div class="form-group">
+                        <!-- email input -->
                         <input [formControl]="email" class="form-control validation-field" placeholder="ایمیل" type="text">
+                        <!-- error handeling for validation email -->
                         <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">ایمیل
                             وارد نشده است</small>
                         <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('email')">آدرس
@@ -17,12 +19,14 @@
                     <div class="form-group d-flex justify-content-between" style="float: right; margin-right: 5px;">
                         <p style="color: #fff">حساب کاربری ندارید؟
                             <span>
+                                <!-- regester link -->
                                 <a routerLink="/register" class="transition" style="color:rgb(8, 178, 201); font-size: 16px">
                                     ثبت نام نمایید
                                 </a>
                             </span>
                         </p>
                     </div>
+                    <!-- submit form is desable until the user email is a valid email -->
                     <div class="form-group">
                         <button [disabled]="!form.valid" class="btn btn-block" type="submit">ارسال ایمیل بازیابی</button>
                     </div>

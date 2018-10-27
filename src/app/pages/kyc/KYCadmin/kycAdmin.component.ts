@@ -83,8 +83,9 @@ export class KycAdminComponent {
         value['email'] = this.userEmail
         // console.log(value);
         
+        //send values to verifykyc function in adminsService
         this.adminsService.verifykyc(value).subscribe(data => {
-            console.log(data);
+            // console.log(data);
             
             let msg = data['msg'];
             let success = data['success'];
@@ -99,13 +100,7 @@ export class KycAdminComponent {
             }
           });
         //console.log(value);
-        
-
-
-        
     }
-
-
     getmail(email){
         this.userEmail=email;
         

@@ -22,6 +22,7 @@ export class ForgetPassComponent implements OnInit {
               private authService:AuthService,
               private flashMessage: FlashMessagesService) {
       this.router = router;
+      //making forget pass form
       this.form = fb.group({
           'email': ['', Validators.compose([Validators.required, CustomValidators.email])],
       });
@@ -30,7 +31,8 @@ export class ForgetPassComponent implements OnInit {
 
   }
 
-  //after Submit the form form values will send to authService
+  //after Submit the form form values will send to forgetPass function in authService
+  //and receive user data and store it
   public onSubmit(values:Object):void {
       if (this.form.valid) {
         this.authService.forgetPass(values).subscribe(data => {

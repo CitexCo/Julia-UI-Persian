@@ -5,22 +5,29 @@
     <div class="col-12 mb-4">
         <div widget class="card border-0 box-shadow">
             <div class="card-header transparent border-0 text-muted">
+                <!-- the user id that binded here is user referal code -->
                 <p  style="font-family: initial" class="mb-0">{{UserId}}</p><p>کد معرف شما</p> <br>
+                <!-- just added the URL befor referal code to make referal link -->
                 <a style="font-family: initial ; color: blue" href={{UserLink}} class="mb-0">{{UserLink}}</a> <p>لینک معرفی به دوستان</p>
 
             </div>
 
             <div class="form-group">
+                <!-- the search input is here -->
                 <div class="input-group pull-right col-md-4">
                         <span class="input-group-append">
                                 <button type="button" class="btn btn-info">Go!</button>
                             </span>
+                            <!-- after any character that user types in this input
+                            the character will send to onSearchChange function for filter the array -->
                     <input (input)="onSearchChange($event.target.value)" type="text" class="form-control" placeholder="Search for...">
 
                 </div>
             </div>
             <div class="card-body pt-0 widget-body">
+                <!-- if user haven't any referal then this message will shows -->
                 <p *ngIf="!hasReferal" class="text-right fs-18 text-gray">متاسفانه شما هنوز کابری را معرفی نکرده اید</p>
+                <!-- if user have referals then this tabel gonna made -->
                 <div *ngIf="hasReferal" class="table-responsive">
                     <table class="table">
                         <thead>

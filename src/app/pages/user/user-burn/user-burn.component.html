@@ -1,3 +1,4 @@
+<!-- if user didnt sent and verified KYC show this section and hide all of the page -->
 <div *ngIf='notVerified'>
   <div widget class="card border-0 box-shadow" style="text-align: left; font-size: 18px;   padding: 6%;margin-bottom: 22px;">
     <div style="    margin-bottom: 20px;" class="card card-outline-danger">
@@ -9,7 +10,7 @@
 
   </div>
 </div>
-
+<!-- if user KYC has been verified then show the page -->
 <div *ngIf='!notVerified'>
 
 
@@ -19,6 +20,7 @@
       <div class="card-body text-center">
         <p class="text-primary">: موجودی</p>
         <p class="card-text">
+          <!-- show amout of user in site -->
           <code>{{balance}}</code>
         </p>
       </div>
@@ -32,7 +34,7 @@
   </div>
 
   <div widget class="card border-0 box-shadow box mb-5">
-
+<!-- list of all pending burn request -->
     <div class="row">
       <div class="col-md-12">
         <div class="pendingTable">
@@ -89,7 +91,7 @@
 
 
   <div widget class="card border-0 box-shadow box">
-
+<!-- list of all pending transfer request -->
     <div class="row">
       <div class="col-md-12">
         <div class="pendingTable">
@@ -146,6 +148,7 @@
 
 
   <div class="modal fade" id="wallet" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- transfer form modal -->
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -199,6 +202,7 @@
   </div>
 
   <div class="modal fade" id="withdraw" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- burn form modal -->
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

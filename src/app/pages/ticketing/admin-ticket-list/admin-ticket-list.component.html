@@ -1,7 +1,9 @@
 <div id="accordion-1" role="tablist" aria-multiselectable="true">
     <div style="padding: 22px"  widget class="card border-0 box-shadow">
+        <!-- showing the ticket description -->
         <p class="urMsg"> : متن تیکت</p> <p class="msg">{{description}}</p> 
         <div class="attachment" *ngIf="attachmentAddress">
+            <!-- if ticket have any attached files then download it after clicked on Download button -->
                 <button   class="btn btn-gray w-100p mb-1 mr-1" type="button">
                     <a style="color: floralwhite" href="/{{attachmentAddress}}" download="{{attachmentAddress}}"> دانلود</a>
                 
@@ -13,7 +15,7 @@
             <h5 class="mb-0">پاسخ</h5>       
         </div>
         <div class="card-body widget-body">
-
+            <!-- send replays on the ticket with this form -->
             <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
                 <div class="form-group">
                     <textarea [formControl]="answerDesc" class="form-control" placeholder="Message" rows="3"></textarea>

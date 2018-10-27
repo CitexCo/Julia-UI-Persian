@@ -131,87 +131,71 @@ export class UserBurnComponent implements OnInit {
   getNum(num){
     this.burnReqNumber = num;
   }
-  resendBurn(number){
-    this.details.burnRequestNumber = number;
-    
-    this.authService.resendConfirmCode(this.details).subscribe(data=>{
-      //console.log(data);
-      
-      this.Msg = data['msg'];
-      let success = data['success'];
-      if (success) {
-        this.resend = true;
-        
-        setTimeout(() => {
-          location.reload()
-      }, 5000);
-      }
-      if (!success) {
-        this.noresend = true;
-        setTimeout(() => {
-          location.reload()
-      }, 5000);
-      }
-    })
-  }
-  verifyBurn(){
-    this.details.burnRequestNumber = this.burnReqNumber;
-    this.details.verificationToken = this.confirmForm.controls['code'].value;
-    this.authService.verifyBurn(this.details)
-    .subscribe(data=>{
-      this.Msg = data['msg'];
-      let success = data['success'];
-      if (success) {
-        this.BurnSuccess = true;
-        
-        setTimeout(() => {
-          location.reload()
-      }, 5000);
-      }
-      if (!success) {
-        this.noBurnSuccess = true;
-        setTimeout(() => {
-          location.reload()
-      }, 5000);
-      }
-      
-    })
-  }
-  reject(){
-    this.details.comment =this.rejectForm.controls['comment'].value;
 
-    this.details.burnRequestNumber = this.burnReqNumber;
-    if (this.rejectForm.valid) {
-      //console.log('valiiiid');
-      
-      this.authService.rejectBurn(this.details).subscribe(data=>{
-        //console.log(data);
+  // verifyBurn(){
+  //   this.details.burnRequestNumber = this.burnReqNumber;
+  //   this.details.verificationToken = this.confirmForm.controls['code'].value;
+  //   this.authService.verifyBurn(this.details)
+  //   .subscribe(data=>{
+  //     this.Msg = data['msg'];
+  //     let success = data['success'];
+  //     if (success) {
+  //       this.BurnSuccess = true;
         
-        this.Msg = data['msg'];
-        let success = data['success'];
+  //       setTimeout(() => {
+  //         location.reload()
+  //     }, 5000);
+  //     }
+  //     if (!success) {
+  //       this.noBurnSuccess = true;
+  //       setTimeout(() => {
+  //         location.reload()
+  //     }, 5000);
+  //     }
+      
+  //   })
+  // }
+
+
+
+
   
-        if(success) {
-          this.err = false;
-          this.success = true;
-        //   setTimeout(() => {
-        //     location.reload()
-        // }, 3000);
-        } if(!success) {
-          this.success = false;
-          this.err = true;
-        //   setTimeout(() => {
-        //     location.reload()
-        // }, 3000); 
-        }
-        
-      })   
-    } else{
-      //console.log('not valiiiid');
+  // reject(){
+  //   this.details.comment =this.rejectForm.controls['comment'].value;
+
+  //   this.details.burnRequestNumber = this.burnReqNumber;
+  //   if (this.rejectForm.valid) {
+  //     //console.log('valiiiid');
       
-    }
+  //     this.authService.rejectBurn(this.details).subscribe(data=>{
+  //       //console.log(data);
+        
+  //       this.Msg = data['msg'];
+  //       let success = data['success'];
+  
+  //       if(success) {
+  //         this.err = false;
+  //         this.success = true;
+  //       //   setTimeout(() => {
+  //       //     location.reload()
+  //       // }, 3000);
+  //       } if(!success) {
+  //         this.success = false;
+  //         this.err = true;
+  //       //   setTimeout(() => {
+  //       //     location.reload()
+  //       // }, 3000); 
+  //       }
+        
+  //     })   
+  //   } else{
+  //     //console.log('not valiiiid');
+      
+  //   }
 
     
-  }
+  // }
+  //if burn form is valid then send the values to burn function in authService
   burn(){
     if (this.burnForm.valid) {
       this.details.password =this.burnForm.controls['password'].value;
@@ -243,6 +227,7 @@ export class UserBurnComponent implements OnInit {
     }
 
   }
+  //if transfer form is valid then send the transfer form values to transfer function in authService
   transfer(){
     if (this.tranferForm.valid) {
       this.details.password =this.tranferForm.controls['password'].value;

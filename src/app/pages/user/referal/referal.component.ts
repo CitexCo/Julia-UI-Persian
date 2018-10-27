@@ -17,11 +17,11 @@ export class ReferalComponent implements OnInit {
   temp = [];
   constructor(router:Router,private authService:AuthService, private flashMessage: FlashMessagesService) {
 
-    //getiing list of referals 
+    //getiing list of referals from getReferal function in authService
     this.authService.getReferal().subscribe(data => {
 
       let referals = data['referals']
-      console.log(referals);
+      // console.log(referals);
       
       if(referals.length){
         this.hasReferal =true;
@@ -38,10 +38,10 @@ export class ReferalComponent implements OnInit {
       });
       
     });
-    //making referal link
+    //making referal link after get all of user profile and set referalCode value to UserId variable
     this.authService.getProfile().subscribe(data=>{
       let user = data['user'];
-      console.log(user.referalCode);
+      // console.log(user.referalCode);
       this.UserId = user.referalCode
       this.UserLink ="http://digiasset.co/panel/#/register?referalCode="+ this.UserId;
     })

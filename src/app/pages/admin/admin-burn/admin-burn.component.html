@@ -1,362 +1,364 @@
 <div *ngIf='!noAccess' widget class="card border-0 box-shadow box">
-    <div class="row">
-      <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
 
-        <div *ngIf="noPending" style="    margin-bottom: 20px;" class="card card-outline-primary">
-          <div class="card-body text-center">
-              <p class="text-primary">فعلا هیچ درخواست تسویه حسابی وجود ندارد</p>
-            <!-- <p class="card-text"><code>123123</code></p> -->
-          </div>
+      <div *ngIf="noPending" style="    margin-bottom: 20px;" class="card card-outline-primary">
+        <div class="card-body text-center">
+          <p class="text-primary">فعلا هیچ درخواست تسویه حسابی وجود ندارد</p>
+          <!-- <p class="card-text"><code>123123</code></p> -->
         </div>
-        <div  class="pendingTable">
-            <p class="mr-2" style="font-size: 20px">لیست تسویه حساب های در انتظار تایید</p>
+      </div>
+      <div class="pendingTable">
+        <p class="mr-2" style="font-size: 20px">لیست تسویه حساب های در انتظار تایید</p>
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="pndingBurnDataSource" dir='ltr'>
-              <ng-container matColumnDef="userEmail">
-                  <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
-                  <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
-                </ng-container>
+            <ng-container matColumnDef="userEmail">
+              <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
+              <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+            </ng-container>
             <ng-container matColumnDef="reqNum">
-                <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
-                <td mat-cell *matCellDef="let element"> {{element.burnRequestNumber}} </td>
-              </ng-container>
+              <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
+              <td mat-cell *matCellDef="let element"> {{element.burnRequestNumber}} </td>
+            </ng-container>
             <ng-container matColumnDef="tokenPrice">
               <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
               <td mat-cell *matCellDef="let element">
                 {{element.tokenPrice}}
-  
+
               </td>
             </ng-container>
-  
+
             <ng-container matColumnDef="submitDate">
               <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
               <td mat-cell *matCellDef="let element">
-  
+
                 {{element.userSubmitDate}}
               </td>
             </ng-container>
-  
+
             <ng-container matColumnDef="amount">
               <th mat-header-cell *matHeaderCellDef> مبلغ </th>
               <td mat-cell *matCellDef="let element">
                 {{element.amount}}
               </td>
             </ng-container>
-  
+
 
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> وضعیت </th>
-                <td mat-cell *matCellDef="let element">
-                    <div aria-label="Second group" class="btn-group " role="group">
-                        <button data-toggle="modal" data-target="#rejectModal" (click)="getNum(element.burnRequestNumber)" class="btn btn-danger" type="button">
-                          <i class="fa fa-times"></i>
-                        </button>
-                        <button data-toggle="modal" data-target="#approveModal" (click)="getNum(element.burnRequestNumber)" class="btn btn-success" type="button">
-                          <i class="fa fa-check"></i>
-                        </button>
-                      </div>
-    
-                </td>
-              </ng-container>
+              <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+              <td mat-cell *matCellDef="let element">
+                <div aria-label="Second group" class="btn-group " role="group">
+                  <button data-toggle="modal" data-target="#rejectModal" (click)="getNum(element.burnRequestNumber)" class="btn btn-danger"
+                    type="button">
+                    <i class="fa fa-times"></i>
+                  </button>
+                  <button data-toggle="modal" data-target="#approveModal" (click)="getNum(element.burnRequestNumber)" class="btn btn-success"
+                    type="button">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+
+              </td>
+            </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
-  
+
           <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
       </div>
-      </div>
     </div>
-  
   </div>
 
+</div>
 
 
-  <div  *ngIf='!noAccess' widget class="card border-0 box-shadow box">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="sectionTitle">
 
-          </div>
-          <div *ngIf="noApproved" style="    margin-bottom: 20px;" class="card card-outline-primary">
-            <div class="card-body text-center">
-              <p class="text-primary">فعلا خرید تایید شده ای وجود ندارد</p>
+<div *ngIf='!noAccess' widget class="card border-0 box-shadow box">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="sectionTitle">
 
-            </div>
-          </div>
-          <div class="pendingTable">
-              <p class="mr-2" style="font-size: 20px"> لیست تسویه حساب های تایید شده</p>
-          <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="approvedBurnDataSource" dir='ltr'>
-                <ng-container matColumnDef="userEmail">
-                    <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
-                    <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
-                  </ng-container>
-              <ng-container matColumnDef="reqNum">
-                  <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
-                  <td mat-cell *matCellDef="let element"> {{element.BurnRequestNumber}} </td>
-                </ng-container>
-              <ng-container matColumnDef="tokenPrice">
-                <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
-                <td mat-cell *matCellDef="let element">
-                  {{element.tokenPrice}}
-    
-                </td>
-              </ng-container>
-    
-              <ng-container matColumnDef="submitDate">
-                <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
-                <td mat-cell *matCellDef="let element">
-    
-                  {{element.userSubmitDate}}
-                </td>
-              </ng-container>
-    
-              <ng-container matColumnDef="amount">
-                <th mat-header-cell *matHeaderCellDef> مبلغ </th>
-                <td mat-cell *matCellDef="let element">
-                  {{element.amount}}
-                </td>
-              </ng-container>
-    
-  
-              <ng-container matColumnDef="status">
-                  <th mat-header-cell *matHeaderCellDef> وضعیت </th>
-                  <td mat-cell *matCellDef="let element">
-                      <span class="badge  mr-1" [ngClass]="{'badge-danger': element.status=='Closed'||element.status=='Canceled', 'badge-info': element.status=='Pending', 'badge-success': element.status=='Approved'}">
-                          {{element.status}}</span>
-      
-                  </td>
-                </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-    
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-          </div>
-        </div>
+      </div>
+      <div *ngIf="noApproved" style="    margin-bottom: 20px;" class="card card-outline-primary">
+        <div class="card-body text-center">
+          <p class="text-primary">فعلا خرید تایید شده ای وجود ندارد</p>
 
         </div>
       </div>
-    
+      <div class="pendingTable">
+        <p class="mr-2" style="font-size: 20px"> لیست تسویه حساب های تایید شده</p>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="approvedBurnDataSource" dir='ltr'>
+            <ng-container matColumnDef="userEmail">
+              <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
+              <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+            </ng-container>
+            <ng-container matColumnDef="reqNum">
+              <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
+              <td mat-cell *matCellDef="let element"> {{element.BurnRequestNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tokenPrice">
+              <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.tokenPrice}}
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="submitDate">
+              <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
+              <td mat-cell *matCellDef="let element">
+
+                {{element.userSubmitDate}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.amount}}
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="badge  mr-1" [ngClass]="{'badge-danger': element.status=='Closed'||element.status=='Canceled', 'badge-info': element.status=='Pending', 'badge-success': element.status=='Approved'}">
+                  {{element.status}}</span>
+
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+</div>
 
 
-    <div  *ngIf='!noAccess' widget class="card border-0 box-shadow box">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="sectionTitle">
+<div *ngIf='!noAccess' widget class="card border-0 box-shadow box">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="sectionTitle">
 
-            </div>
-            <div *ngIf="noReject" style="    margin-bottom: 20px;" class="card card-outline-primary">
-              <div class="card-body text-center">
-                <p class="text-primary">فعلا خرید تایید شده ای وجود ندارد</p>
-                <!-- <p class="card-text"><code>123123</code></p> -->
-              </div>
-            </div>
-            <div class="pendingTable">
-                <p class="mr-2" style="font-size: 20px"> لیست تسویه حساب های رد شده</p>
-            <div class="mat-elevation-z8">
-              <table mat-table [dataSource]="rejectedBurnDataSource" dir='ltr'>
-                  <ng-container matColumnDef="userEmail">
-                      <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
-                      <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
-                    </ng-container>
-                <ng-container matColumnDef="reqNum">
-                    <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
-                    <td mat-cell *matCellDef="let element"> {{element.BurnRequestNumber}} </td>
-                  </ng-container>
-                <ng-container matColumnDef="tokenPrice">
-                  <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
-                  <td mat-cell *matCellDef="let element">
-                    {{element.tokenPrice}}
-      
-                  </td>
-                </ng-container>
-      
-                <ng-container matColumnDef="submitDate">
-                  <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
-                  <td mat-cell *matCellDef="let element">
-      
-                    {{element.userSubmitDate}}
-                  </td>
-                </ng-container>
-      
-                <ng-container matColumnDef="amount">
-                  <th mat-header-cell *matHeaderCellDef> مبلغ </th>
-                  <td mat-cell *matCellDef="let element">
-                    {{element.amount}}
-                  </td>
-                </ng-container>
-      
-    
-                <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef> وضعیت </th>
-                    <td mat-cell *matCellDef="let element">
-                        <span class="badge  mr-1" [ngClass]="{'badge-danger': element.status=='Rejected'||element.status=='Canceled', 'badge-info': element.status=='Pending', 'badge-success': element.status=='Approved'}">
-                            {{element.status}}</span>
-        
-                    </td>
-                  </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-      
-              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-            </div>
-          </div>
-          </div>
-        </div>
-      
       </div>
-
-  <!-- MODALS -->
-  <div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="modal-danger-label">
-      <div *ngIf="!err && !success" class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header state modal-danger">
-            <h4 class="modal-title" id="modal-danger-label">
-              شماره رسید: {{reciptNum}} </h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <flash-messages></flash-messages>
-            <form (ngSubmit)="onSubmit(form.value)" [formGroup]="rejectForm" class="form-horizontal">
-    
-    
-    
-              <div class="form-group row text-sm-right">
-    
-                <div class="col-sm-9">
-                  <textarea formControlName="comment" type="text" class="form-control" id="email-h-t"></textarea>
-                  <small class="text-danger" *ngIf="rejectForm.get('comment').hasError('required')">ذکر توضیحات الزامی است</small>
-                </div>
-                <label for="email-h-f" class="col-sm-3 form-control-label mt-1">توضیحات</label>
-    
-              </div>
-              <div class="modal-footer">
-                <button type="button"  (click)='reject()' class="btn btn-danger">تایید</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
-              </div>
-            </form>
-          </div>
-    
+      <div *ngIf="noReject" style="    margin-bottom: 20px;" class="card card-outline-primary">
+        <div class="card-body text-center">
+          <p class="text-primary">فعلا خرید تایید شده ای وجود ندارد</p>
+          <!-- <p class="card-text"><code>123123</code></p> -->
         </div>
       </div>
-    
-      <div *ngIf="err" class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header state modal-danger">
-            <h4 class="modal-title" id="modal-danger-label">
-              <i class="fa fa-exclamation"></i>Error</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">x</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            {{Msg}}
-          </div>
-          <div class="modal-footer">
-            <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
-          </div>
-        </div>
-      </div>
-    
-      <div *ngIf="success" class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header state modal-success">
-            <h4 class="modal-title" id="modal-success-label">
-              <i class="fa fa-exclamation"></i>تمام</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">x</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            {{Msg}}
-          </div>
-          <div class="modal-footer">
-            <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
-          </div>
+      <div class="pendingTable">
+        <p class="mr-2" style="font-size: 20px"> لیست تسویه حساب های رد شده</p>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="rejectedBurnDataSource" dir='ltr'>
+            <ng-container matColumnDef="userEmail">
+              <th mat-header-cell *matHeaderCellDef> ایمیل کاربر </th>
+              <td mat-cell *matCellDef="let element"> {{element.userEmail}} </td>
+            </ng-container>
+            <ng-container matColumnDef="reqNum">
+              <th mat-header-cell *matHeaderCellDef> شماره درخواست </th>
+              <td mat-cell *matCellDef="let element"> {{element.BurnRequestNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tokenPrice">
+              <th mat-header-cell *matHeaderCellDef> قیمت توکن </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.tokenPrice}}
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="submitDate">
+              <th mat-header-cell *matHeaderCellDef> تاریخ ثبت </th>
+              <td mat-cell *matCellDef="let element">
+
+                {{element.userSubmitDate}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef> مبلغ </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.amount}}
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> وضعیت </th>
+              <td mat-cell *matCellDef="let element">
+                <span class="badge  mr-1" [ngClass]="{'badge-danger': element.status=='Rejected'||element.status=='Canceled', 'badge-info': element.status=='Pending', 'badge-success': element.status=='Approved'}">
+                  {{element.status}}</span>
+
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="modal-warning-label">
-        <div *ngIf="!err && !success" class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header state modal-warning">
-              <h4 class="modal-title" id="modal-warning-label">
-                شماره رسید: {{reciptNum}} </h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
+</div>
+
+<!-- MODALS -->
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="modal-danger-label">
+  <div *ngIf="!err && !success" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header state modal-danger">
+        <h4 class="modal-title" id="modal-danger-label">
+          شماره رسید: {{reciptNum}} </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <flash-messages></flash-messages>
+        <form (ngSubmit)="onSubmit(form.value)" [formGroup]="rejectForm" class="form-horizontal">
+
+
+
+          <div class="form-group row text-sm-right">
+
+            <div class="col-sm-9">
+              <textarea formControlName="comment" type="text" class="form-control" id="email-h-t"></textarea>
+              <small class="text-danger" *ngIf="rejectForm.get('comment').hasError('required')">ذکر توضیحات الزامی است</small>
             </div>
-            <div class="modal-body">
-              <flash-messages></flash-messages>
-              <form (ngSubmit)="onSubmit(form.value)" [formGroup]="approveForm" class="form-horizontal">
-      
-      
-      
-                <div class="form-group row text-sm-right">
-      
-                  <div class="col-sm-9">
-                    <textarea formControlName="comment" type="text" class="form-control" id="email-h-t"></textarea>
-      
-                  </div>
-                  <label for="email-h-f" class="col-sm-3 form-control-label mt-1">توضیحات</label>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" (click)='approve()' class="btn btn-success">تایید</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
-                </div>
-              </form>
-            </div>
-      
+            <label for="email-h-f" class="col-sm-3 form-control-label mt-1">توضیحات</label>
+
           </div>
-        </div>
-      
-        <div *ngIf="err" class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header state modal-danger">
-              <h4 class="modal-title" id="modal-danger-label">
-                <i class="fa fa-exclamation"></i>Error</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">x</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              {{Msg}}
-            </div>
-            <div class="modal-footer">
-              <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
-            </div>
+          <div class="modal-footer">
+            <button type="button" (click)='reject()' class="btn btn-danger">تایید</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
           </div>
-        </div>
-      
-        <div *ngIf="success" class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header state modal-success">
-              <h4 class="modal-title" id="modal-success-label">
-                <i class="fa fa-exclamation"></i>تمام</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">x</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              {{Msg}}
-            </div>
-            <div class="modal-footer">
-              <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
 
+    </div>
+  </div>
 
-      <div *ngIf='noAccess' class="card card-outline-danger">
-          <div class="card-body text-center">
-              <p style="font-size: 20px" class="text-danger">شما به این بخش دسترسی ندارید</p>
+  <div *ngIf="err" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header state modal-danger">
+        <h4 class="modal-title" id="modal-danger-label">
+          <i class="fa fa-exclamation"></i>Error</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{Msg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="success" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header state modal-success">
+        <h4 class="modal-title" id="modal-success-label">
+          <i class="fa fa-exclamation"></i>تمام</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{Msg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="modal-warning-label">
+  <div *ngIf="!err && !success" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header state modal-warning">
+        <h4 class="modal-title" id="modal-warning-label">
+          شماره رسید: {{reciptNum}} </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <flash-messages></flash-messages>
+        <form (ngSubmit)="onSubmit(form.value)" [formGroup]="approveForm" class="form-horizontal">
+
+
+
+          <div class="form-group row text-sm-right">
+
+            <div class="col-sm-9">
+              <textarea formControlName="comment" type="text" class="form-control" id="email-h-t"></textarea>
+
             </div>
-        </div>
+            <label for="email-h-f" class="col-sm-3 form-control-label mt-1">توضیحات</label>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)='approve()' class="btn btn-success">تایید</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="err" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header state modal-danger">
+        <h4 class="modal-title" id="modal-danger-label">
+          <i class="fa fa-exclamation"></i>Error</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{Msg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">تلاش مجدد</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="success" class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header state modal-success">
+        <h4 class="modal-title" id="modal-success-label">
+          <i class="fa fa-exclamation"></i>تمام</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{Msg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)='reload()' class="btn btn-default" data-dismiss="modal">بستن</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf='noAccess' class="card card-outline-danger">
+  <div class="card-body text-center">
+    <p style="font-size: 20px" class="text-danger">شما به این بخش دسترسی ندارید</p>
+  </div>
+</div>

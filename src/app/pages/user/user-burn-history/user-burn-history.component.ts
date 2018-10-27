@@ -33,7 +33,7 @@ export class UserBurnHistoryComponent implements OnInit {
 
 
       this.allBurnRequests = data['burnRequest'];
-      console.log(data);
+      // console.log(data);
       this.BurnDataSource = new MatTableDataSource(this.allBurnRequests);
       this.BurnDataSource.paginator = this.paginator;
 

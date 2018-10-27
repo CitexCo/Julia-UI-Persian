@@ -33,7 +33,7 @@ export class DiskSpaceComponent {
 
     this.settings = this.appSettings.settings;
     this.initPreviousSettings(); 
-    this.authService.getProfile()
+    // getting all user information and check verified KYC or not
     this.authService.getProfile().subscribe(data=>{
 
       let user = data['user'];

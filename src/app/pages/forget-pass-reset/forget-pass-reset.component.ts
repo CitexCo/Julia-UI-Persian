@@ -40,6 +40,7 @@ export class ForgetPassResetComponent implements OnInit {
   }
   public onSubmit(values:Object):void {
     if (this.form.valid) {
+      //if form is valid then send new password to ForgetResetPass function in authService
       values['resetpasswordtoken'] = this.resetpasswordtoken;
       values['email'] = this.email;
       values['password'] = this.form.value.password

@@ -19,16 +19,17 @@ export class AdminTicketComponent implements OnInit {
   public router: Router;
   constructor(router:Router, private ticketService: TicketService,
     private flashMessage: FlashMessagesService) {
-      this.ticketService.listAdmin()
+      this.ticketService.listAdminTicket()
     this.router = router;
    }
 
   ngOnInit() {
-    this.ticketService.listAdmin().subscribe(data=>{
+    //getting list of admins tickets from listAdminTicket function in ticketService
+    this.ticketService.listAdminTicket().subscribe(data=>{
       let tickets = data['tickets'];
       //console.log(data);
       tickets.forEach(i => {
-
+        //format the lastReplyDate with momentJS
         i.lastReplyDate= moment(i.lastReplyDate).format('MM/DD/YYYY');
     });
       this.dataSource = new MatTableDataSource(tickets);
@@ -40,6 +41,8 @@ export class AdminTicketComponent implements OnInit {
       
     })
   }
+  //get ticket number and send it to currentTicket function in ticketService to find data of that ticket
+  // and then navigate to 'pages/ticketing/AdminTicketList' for showing the ticket details
   ShowTicket(ticketnum){
     this.ticketNum = ticketnum;
     this.ticketService.currentTicket(ticketnum);

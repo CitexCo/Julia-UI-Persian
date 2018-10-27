@@ -90,16 +90,10 @@ export class AdminUserListComponent implements OnInit {
       });
     });
   }
-<<<<<<< HEAD
   //send new role values to changeRole function in adminsService to set new roles for selected admin
   public onSubmit(values:Object):void {
     values["email"] =this.selected[0].email;
     //console.log(values);
-=======
-
-  public onSubmit(values: Object): void {
-    values["email"] = this.selected[0].email;
->>>>>>> dev-rpc
     this.adminsService.changeRole(values).subscribe(data => {
       let msg = data["msg"];
       let success = data["success"];
@@ -117,13 +111,8 @@ export class AdminUserListComponent implements OnInit {
       }
     });
   }
-<<<<<<< HEAD
   
   //after each character that user types this function will filter the list of admins
-=======
-
-
->>>>>>> dev-rpc
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
 
@@ -182,19 +171,11 @@ export class AdminUserListComponent implements OnInit {
   }
 
   IsUser(roleTitle) {
-<<<<<<< HEAD
     let roles = roleTitle
 
     
     if (roleTitle == 'user') {
      return this.isUser = true;
-=======
-    let roles = roleTitle;
-    // roles.forEach(role => {
-    //   //console.log(role);
-
-    // });
->>>>>>> dev-rpc
 
     if (roleTitle == "user") {
       return (this.isUser = true);
@@ -204,6 +185,7 @@ export class AdminUserListComponent implements OnInit {
     //   //console.log(roleTitle);
     // }
   }
+}
 
   IsUserManager(roleTitle) {
     if (roleTitle == "userManager") {

@@ -1,122 +1,133 @@
-import { Component, OnInit, ViewEncapsulation,ViewChild } from '@angular/core';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from "@angular/core";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { AuthService } from "../../../services/auth-service.service";
 import { AdminsService } from "../../../services/admins.service";
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import { FlashMessagesService } from "angular2-flash-messages";
+import { Router } from "@angular/router";
+import {
+  FormGroup,
+  FormControl,
+  AbstractControl,
+  FormBuilder,
+  Validators
+} from "@angular/forms";
+import { MatPaginator, MatTableDataSource } from "@angular/material";
+
 @Component({
-  selector: 'app-admin-user-list',
-  templateUrl: './admin-user-list.component.html',
-  styleUrls: ['./admin-user-list.component.scss'],
+  selector: "app-admin-user-list",
+  templateUrl: "./admin-user-list.component.html",
+  styleUrls: ["./admin-user-list.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
 export class AdminUserListComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
   public router: Router;
   editing = {};
-  public form:FormGroup;
-  public user:AbstractControl;
-  public UserManager:AbstractControl;
-  public changeRoles:AbstractControl;
-  public verifyKYC:AbstractControl;
-  public email:AbstractControl;
-  public answerTicket:AbstractControl;
-  isUser=false;
-  isChangeRole=false;
-  isUserManager=false;
-  isVerifyKYC=false;
-  isAnswerTicket=false;
+  public form: FormGroup;
+  public user: AbstractControl;
+  public UserManager: AbstractControl;
+  public changeRoles: AbstractControl;
+  public verifyKYC: AbstractControl;
+  public email: AbstractControl;
+  public answerTicket: AbstractControl;
+  isUser = false;
+  isChangeRole = false;
+  isUserManager = false;
+  isVerifyKYC = false;
+  isAnswerTicket = false;
   // rows = [];
   temp = [];
   selected = [];
   loadingIndicator: boolean = false;
   reorderable: boolean = true;
-  rows:any = [];
-   roles;
-  columns = [
-    { prop: 'email' },
-    { name: 'roles' },
+  rows: any = [];
+  roles;
+  columns = [{ prop: "email" }, { name: "roles" }];
 
-  ];
-  
-  @ViewChild(DatatableComponent) table: DatatableComponent;
+  @ViewChild(DatatableComponent)
+  table: DatatableComponent;
 
-
-
-  constructor(router:Router, private authService:AuthService,private adminsService:AdminsService,private flashMessage: FlashMessagesService,fb:FormBuilder,) { 
+  constructor(
+    router: Router,
+    private authService: AuthService,
+    private adminsService: AdminsService,
+    private flashMessage: FlashMessagesService,
+    fb: FormBuilder
+  ) {
     //making a form that contains list of roles
     this.form = fb.group({
       user: [true],
       UserManager: [false],
       changeRoles: [false],
-      verifyKYC:[false],
-      answerTickets:[false],
-      email:['']
-  });
-  this.adminsService.getUserList();
-  // this.user = this.form.controls['user'];
-  this.UserManager = this.form.controls['UserManager'];
-  this.changeRoles = this.form.controls['changeRoles'];
-  this.verifyKYC = this.form.controls['verifyKYC'];
-  this.email = this.form.controls['email'];
-  this.answerTicket = this.form.controls['answerTicket'];
+      verifyKYC: [false],
+      answerTickets: [false],
+      email: [""]
+    });
 
-  //getting list of all admins
+    this.adminsService.getUserList();
+    // this.user = this.form.controls['user'];
+    this.UserManager = this.form.controls["UserManager"];
+    this.changeRoles = this.form.controls["changeRoles"];
+    this.verifyKYC = this.form.controls["verifyKYC"];
+    this.email = this.form.controls["email"];
+    this.answerTicket = this.form.controls["answerTicket"];
+
+    //getting list of all admins
     this.adminsService.listAdmins().subscribe(data => {
+      let admins = data["admins"];
 
-      let admins = data['admins']
-
-      
       admins.forEach(user => {
-        //console.log(user);
-        
-        var roleStr = ""
+        var roleStr = "";
         user.roles.forEach(a => {
           roleStr += a.roleTitle + ",";
-          
         });
-        user.roles = roleStr.slice(0,-1);
+        user.roles = roleStr.slice(0, -1);
       });
-      this.rows=admins
-      this. rows.forEach(user=>{
+      this.rows = admins;
+      this.rows.forEach(user => {
         this.temp.push(user);
-        
-      })
-
-
+      });
     });
   }
+<<<<<<< HEAD
   //send new role values to changeRole function in adminsService to set new roles for selected admin
   public onSubmit(values:Object):void {
     values["email"] =this.selected[0].email;
     //console.log(values);
+=======
+
+  public onSubmit(values: Object): void {
+    values["email"] = this.selected[0].email;
+>>>>>>> dev-rpc
     this.adminsService.changeRole(values).subscribe(data => {
-      //console.log(data);
-      let msg = data['msg'];
-      let success = data['success'];
-      if(success) {
-        this.flashMessage.show(msg, {cssClass: 'alert-success', timeout: 3000});
+      let msg = data["msg"];
+      let success = data["success"];
+      if (success) {
+        this.flashMessage.show(msg, {
+          cssClass: "alert-success",
+          timeout: 3000
+        });
         location.reload();
       } else {
-        this.flashMessage.show(msg, {cssClass: 'alert-danger', timeout: 3000});
+        this.flashMessage.show(msg, {
+          cssClass: "alert-danger",
+          timeout: 3000
+        });
       }
     });
-    
-    
   }
+<<<<<<< HEAD
   
   //after each character that user types this function will filter the list of admins
+=======
+
+
+>>>>>>> dev-rpc
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
 
-      // //console.log(this.temp);
-      
     const temp = this.temp.filter(function(d) {
-
-
-      
       return d.email.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows = temp;
@@ -124,99 +135,102 @@ export class AdminUserListComponent implements OnInit {
   }
 
   updateValue(event, cell, cellValue, row) {
-    this.editing[row.$$index + '-' + cell] = false;
+    this.editing[row.$$index + "-" + cell] = false;
     this.rows[row.$$index][cell] = event.target.value;
   }
 
   //after select checkbox of each user this function will run
   onSelect({ selected }) {
     //console.log(selected.length);
-    this.isUser=false;
-    this.isChangeRole=false;
-    this.isUserManager=false;
-    this.isVerifyKYC=false;
-    this.isAnswerTicket=false;
+    this.isUser = false;
+    this.isChangeRole = false;
+    this.isUserManager = false;
+    this.isVerifyKYC = false;
+    this.isAnswerTicket = false;
     let roles = selected[0].roles;
-    let ro = roles.split(',');
+    let ro = roles.split(",");
 
     ro.forEach(i => {
       // //console.log(i);
-        this.IsUser(i);
+      this.IsUser(i);
       this.IsChangeRole(i);
 
-       this.IsVerifyKYC(i);
+      this.IsVerifyKYC(i);
       this.IsAnswerTicket(i);
 
-
-       this.IsUserManager(i);
+      this.IsUserManager(i);
     });
     // //console.log("change role",this.isChangeRole);
     // //console.log("this.isVerifyKYC",this.isVerifyKYC);
     // //console.log("this.isAnswerTicket",this.isAnswerTicket);
     // //console.log("this.isExchanger",this.isExchanger);
     // //console.log("this.user",this.isUser);
-    
-    this.selected=[]
+
+    this.selected = [];
     // //console.log('Select Event', selected, this.selected);
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
-
   }
   // check roles of admin with this 4 function
   IsChangeRole(roleTitle) {
-        
-    if (roleTitle == 'changeRoles') {
-      this.isChangeRole= true
+    if (roleTitle == "changeRoles") {
+      this.isChangeRole = true;
     }
     // else {
     //   this.isChangeRole= false
     // }
   }
+
   IsUser(roleTitle) {
+<<<<<<< HEAD
     let roles = roleTitle
 
     
     if (roleTitle == 'user') {
      return this.isUser = true;
+=======
+    let roles = roleTitle;
+    // roles.forEach(role => {
+    //   //console.log(role);
 
-      
+    // });
+>>>>>>> dev-rpc
+
+    if (roleTitle == "user") {
+      return (this.isUser = true);
     }
     // else {
     //  return this.isUser = false;
     //   //console.log(roleTitle);
     // }
   }
-  IsUserManager(roleTitle){
 
-    
-    if (roleTitle == 'userManager') {
-      this.isUserManager = true
+  IsUserManager(roleTitle) {
+    if (roleTitle == "userManager") {
+      this.isUserManager = true;
     }
     // else {
     //   this.isExchanger = false
     // }
   }
-  IsVerifyKYC(roleTitle){
 
-    
-    if (roleTitle == 'verifyKYC') {
-      this.isVerifyKYC= true
+  IsVerifyKYC(roleTitle) {
+    if (roleTitle == "verifyKYC") {
+      this.isVerifyKYC = true;
     }
     // else {
     //   this.isVerifyKYC= false
     // }
   }
-  IsAnswerTicket(roleTitle){
 
-    
-    if (roleTitle == 'answerTickets') {
-      this.isAnswerTicket= true
+  IsAnswerTicket(roleTitle) {
+    if (roleTitle == "answerTickets") {
+      this.isAnswerTicket = true;
     }
     // else {
     //   this.isAnswerTicket= false
     // }
   }
-  ngOnInit() {
-  }
 
+  ngOnInit() {}
 }
